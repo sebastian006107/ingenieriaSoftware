@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="admin-wrap">
+    <div class="sidebar">
+        <a class="sb-logo" href="{% url 'admin_dashboard' %}">Pacific Reef</a>
+        <div class="sb-section">Principal</div>
+        <a class="sb-item" href="{% url 'admin_dashboard' %}"><div class="sb-dot"></div>Dashboard</a>
+        <a class="sb-item" href="{% url 'admin_reservas' %}"><div class="sb-dot"></div>Reservas</a>
+        <a class="sb-item active" href="{% url 'admin_habitaciones' %}"><div class="sb-dot"></div>Habitaciones</a>
+        <a class="sb-item" href="#"><div class="sb-dot"></div>Usuarios</a>
+        <div class="sb-section">Cuenta</div>
+        <a class="sb-item" href="{% url 'logout' %}"><div class="sb-dot"></div>Cerrar sesión</a>
+    </div>
+    <div class="admin-content">
+        <a href="{% url 'admin_habitaciones' %}" class="detail-back">← Volver a habitaciones</a>
+        <p class="eyebrow">Administración</p>
+        <h1 class="admin-title" style="margin-bottom:24px;">Editar Habitación {{ habitacion.numero }}</h1>
+        <div style="display:grid; grid-template-columns:1fr 320px; gap:32px;">
+            <form method="post">
+                {% csrf_token %}
+                <label class="input-label">Número de habitación</label>
+                <input class="input-field" type="number" name="numero" value="{{ habitacion.numero }}" required>
+                <label class="input-label">Piso</label>
+                <input class="input-field" type="number" name="piso" value="{{ habitacion.piso }}" required>
+                <label class="input-label">Categoría</label>
+                <select class="input-field" name="categoria">
+                    <option value="turista" {% if habitacion.categoria == 'turista' %}selected{% endif %}>Turista</option>
+                    <option value="premium" {% if habitacion.categoria == 'premium' %}selected{% endif %}>Premium</option>
+                </select>
+                <label class="input-label">Capacidad (personas)</label>
+                <input class="input-field" type="number" name="capacidad" value="{{ habitacion.capacidad }}" min="1" max="4" required>
+                <label class="input-label">Precio por noche</label>
+                <input class="input-field" type="number" name="precio_noche" value="{{ habitacion.precio_noche }}" required>
+                <label class="input-label">Descripción</label>
+                <input class="input-field" type="text" name="descripcion" value="{{ habitacion.descripcion }}" placeholder="WiFi, TV, A/C...">
+                <div style="display:flex; align-items:center; gap:10px; margin-bottom:24px;">
+                    <input type="checkbox" name="disponible" id="disponible" {% if habitacion.disponible %}checked{% endif %}>
+                    <label for="disponible" style="font-size:12px; color:#888780; text-transform:uppercase; letter-spacing:1px;">Disponible</label>
+                </div>
+                <button type="submit" class="btn-primary" style="width:auto; padding:12px 32px;">Guardar cambios</button>
+            </form>
+            <div style="background:#1C1C1A; padding:28px;">
+                <h2 style="font-family:'Cormorant Garamond',serif; font-size:20px; font-weight:300; color:#F7F4EF; margin-bottom:20px;">Estado actual</h2>
+                <div style="font-size:12px; color:#888780; margin-bottom:8px;">Categoría</div>
+                <div style="margin-bottom:16px;"><span class="{% if habitacion.categoria == 'premium' %}badge-p{% else %}badge-t{% endif %}">{{ habitacion.get_categoria_display }}</span></div>
+                <div style="font-size:12px; color:#888780; margin-bottom:8px;">Precio actual</div>
+                <div style="font-family:'Cormorant Garamond',serif; font-size:22px; color:#C9A96E; margin-bottom:16px;">${{ habitacion.precio_noche }}</div>
+                <div style="font-size:12px; color:#888780; margin-bottom:8px;">Reservas activas</div>
+                <div style="font-size:18px; font-weight:300; color:#F7F4EF;">{{ habitacion.reserva_set.count }}</div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

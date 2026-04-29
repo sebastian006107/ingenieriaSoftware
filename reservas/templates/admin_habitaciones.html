@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="admin-wrap">
+    <div class="sidebar">
+        <a class="sb-logo" href="{% url 'admin_dashboard' %}">Pacific Reef</a>
+        <div class="sb-section">Principal</div>
+        <a class="sb-item" href="{% url 'admin_dashboard' %}"><div class="sb-dot"></div>Dashboard</a>
+        <a class="sb-item" href="{% url 'admin_reservas' %}"><div class="sb-dot"></div>Reservas</a>
+        <a class="sb-item active" href="{% url 'admin_habitaciones' %}"><div class="sb-dot"></div>Habitaciones</a>
+        <a class="sb-item" href="#"><div class="sb-dot"></div>Usuarios</a>
+        <div class="sb-section">Cuenta</div>
+        <a class="sb-item" href="{% url 'logout' %}"><div class="sb-dot"></div>Cerrar sesión</a>
+    </div>
+    <div class="admin-content">
+        <div class="admin-header">
+            <div>
+                <p class="eyebrow">Administración</p>
+                <h1 class="admin-title">Gestión de habitaciones</h1>
+            </div>
+        </div>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Número</th>
+                    <th>Piso</th>
+                    <th>Categoría</th>
+                    <th>Capacidad</th>
+                    <th>Precio noche</th>
+                    <th>Disponible</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for hab in habitaciones %}
+                <tr>
+                    <td>{{ hab.numero }}</td>
+                    <td>{{ hab.piso }}</td>
+                    <td><span class="{% if hab.categoria == 'premium' %}badge-p{% else %}badge-t{% endif %}">{{ hab.get_categoria_display }}</span></td>
+                    <td>{{ hab.capacidad }} personas</td>
+                    <td style="font-family:'Cormorant Garamond',serif; font-size:16px;">${{ hab.precio_noche }}</td>
+                    <td>
+                        {% if hab.disponible %}
+                            <span class="status-ok">Disponible</span>
+                        {% else %}
+                            <span class="status-cancel">No disponible</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{% url 'admin_editar_habitacion' hab.id %}" class="action-btn">Editar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

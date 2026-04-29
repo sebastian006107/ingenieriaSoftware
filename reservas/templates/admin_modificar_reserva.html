@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="admin-wrap">
+    <div class="sidebar">
+        <a class="sb-logo" href="{% url 'admin_dashboard' %}">Pacific Reef</a>
+        <div class="sb-section">Principal</div>
+        <a class="sb-item" href="{% url 'admin_dashboard' %}"><div class="sb-dot"></div>Dashboard</a>
+        <a class="sb-item active" href="{% url 'admin_reservas' %}"><div class="sb-dot"></div>Reservas</a>
+        <a class="sb-item" href="#"><div class="sb-dot"></div>Habitaciones</a>
+        <a class="sb-item" href="#"><div class="sb-dot"></div>Usuarios</a>
+        <div class="sb-section">Cuenta</div>
+        <a class="sb-item" href="{% url 'logout' %}"><div class="sb-dot"></div>Cerrar sesión</a>
+    </div>
+    <div class="admin-content">
+        <a href="{% url 'admin_reservas' %}" class="detail-back">← Volver a reservas</a>
+        <p class="eyebrow">Administración</p>
+        <h1 class="admin-title" style="margin-bottom:24px;">Modificar Reserva #{{ reserva.id }}</h1>
+        <div style="display:grid; grid-template-columns:1fr 320px; gap:32px;">
+            <form method="post">
+                {% csrf_token %}
+                <label class="input-label">Fecha de entrada</label>
+                <input class="input-field" type="date" name="fecha_entrada" value="{{ reserva.fecha_entrada|date:'Y-m-d' }}" required>
+                <label class="input-label">Fecha de salida</label>
+                <input class="input-field" type="date" name="fecha_salida" value="{{ reserva.fecha_salida|date:'Y-m-d' }}" required>
+                <button type="submit" class="btn-primary" style="width:auto; padding:12px 32px;">Guardar cambios</button>
+            </form>
+            <div style="background:#1C1C1A; padding:28px;">
+                <h2 style="font-family:'Cormorant Garamond',serif; font-size:20px; font-weight:300; color:#F7F4EF; margin-bottom:20px;">Detalle actual</h2>
+                <div style="font-size:12px; color:#888780; margin-bottom:8px;">Cliente</div>
+                <div style="font-size:14px; color:#F7F4EF; margin-bottom:16px;">{{ reserva.usuario.get_full_name|default:reserva.usuario.username }}</div>
+                <div style="font-size:12px; color:#888780; margin-bottom:8px;">Habitación</div>
+                <div style="font-size:14px; color:#F7F4EF; margin-bottom:16px;">{{ reserva.habitacion.numero }} — {{ reserva.habitacion.get_categoria_display }}</div>
+                <div style="font-size:12px; color:#888780; margin-bottom:8px;">Monto total</div>
+                <div style="font-family:'Cormorant Garamond',serif; font-size:22px; color:#C9A96E;">${{ reserva.total_estadía }}</div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

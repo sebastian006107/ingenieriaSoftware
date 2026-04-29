@@ -4,8 +4,8 @@
     <div class="sidebar">
         <a class="sb-logo" href="{% url 'admin_dashboard' %}">Pacific Reef</a>
         <div class="sb-section">Principal</div>
-        <a class="sb-item active" href="{% url 'admin_dashboard' %}"><div class="sb-dot"></div>Dashboard</a>
-        <a class="sb-item" href="{% url 'admin_reservas' %}"><div class="sb-dot"></div>Reservas</a>
+        <a class="sb-item" href="{% url 'admin_dashboard' %}"><div class="sb-dot"></div>Dashboard</a>
+        <a class="sb-item active" href="{% url 'admin_reservas' %}"><div class="sb-dot"></div>Reservas</a>
         <a class="sb-item" href="{% url 'admin_habitaciones' %}"><div class="sb-dot"></div>Habitaciones</a>
         <a class="sb-item" href="#"><div class="sb-dot"></div>Usuarios</a>
         <div class="sb-section">Cuenta</div>
@@ -14,30 +14,16 @@
     <div class="admin-content">
         <div class="admin-header">
             <div>
-                <p class="eyebrow">Panel de control</p>
-                <h1 class="admin-title">Dashboard</h1>
-            </div>
-            <div class="admin-date">{{ request.user.get_full_name }}</div>
-        </div>
-        <div class="metrics">
-            <div class="metric">
-                <div class="metric-label">Reservas hoy</div>
-                <div class="metric-val">{{ reservas_hoy }}</div>
-            </div>
-            <div class="metric">
-                <div class="metric-label">Total reservas</div>
-                <div class="metric-val gold">{{ total_reservas }}</div>
-            </div>
-            <div class="metric">
-                <div class="metric-label">Disponibles</div>
-                <div class="metric-val">{{ habitaciones_disponibles }}</div>
-            </div>
-            <div class="metric">
-                <div class="metric-label">Ocupación</div>
-                <div class="metric-val gold">{{ ocupacion }}%</div>
+                <p class="eyebrow">Administración</p>
+                <h1 class="admin-title">Gestión de reservas</h1>
             </div>
         </div>
-        <div class="table-section-title">Reservas recientes</div>
+        <div style="display:flex; gap:8px; margin-bottom:20px;">
+            <a href="{% url 'admin_reservas' %}" class="action-btn {% if not estado_actual %}active{% endif %}">Todas</a>
+            <a href="?estado=confirmada" class="action-btn {% if estado_actual == 'confirmada' %}active{% endif %}">Confirmadas</a>
+            <a href="?estado=pendiente" class="action-btn {% if estado_actual == 'pendiente' %}active{% endif %}">Pendientes</a>
+            <a href="?estado=cancelada" class="action-btn {% if estado_actual == 'cancelada' %}active{% endif %}">Canceladas</a>
+        </div>
         <table class="data-table">
             <thead>
                 <tr>
@@ -52,7 +38,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for reserva in reservas_recientes %}
+                {% for reserva in reservas %}
                 <tr>
                     <td style="color:#888780;">{{ reserva.id }}</td>
                     <td>{{ reserva.usuario.get_full_name|default:reserva.usuario.username }}</td>
@@ -67,12 +53,15 @@
                     </td>
                     <td>
                         {% if reserva.estado != 'cancelada' %}
+                        <a href="{% url 'admin_modificar_reserva' reserva.id %}" class="action-btn">Modificar</a>
                         <a href="{% url 'admin_cancelar_reserva' reserva.id %}" class="action-btn danger" onclick="return confirm('¿Cancelar esta reserva?')">Cancelar</a>
+                        {% else %}
+                        <span style="font-size:11px; color:#888780;">—</span>
                         {% endif %}
                     </td>
                 </tr>
                 {% empty %}
-                <tr><td colspan="8" style="text-align:center; color:#888780; padding:24px;">No hay reservas registradas.</td></tr>
+                <tr><td colspan="8" style="text-align:center; color:#888780; padding:24px;">No hay reservas.</td></tr>
                 {% endfor %}
             </tbody>
         </table>

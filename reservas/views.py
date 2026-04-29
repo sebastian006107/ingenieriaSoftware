@@ -147,3 +147,59 @@ def admin_cancelar_reserva(request, id):
     reserva.estado = 'cancelada'
     reserva.save()
     return redirect('admin_dashboard')
+
+
+
+@staff_member_required(login_url='/login/')
+def admin_reservas(request):
+    reservas = Reserva.objects.all().order_by('-fecha_creacion')
+    estado = request.GET.get('estado')
+    if estado:
+        reservas = reservas.filter(estado=estado)
+    return render(request, 'admin_reservas.html', {'reservas': reservas, 'estado_actual': estado})
+
+@staff_member_required(login_url='/login/')
+def admin_modificar_reserva(request, id):
+    reserva = get_object_or_404(Reserva, id=id)
+    if request.method == 'POST':
+        fecha_entrada = request.POST['fecha_entrada']
+        fecha_salida = request.POST['fecha_salida']
+        from datetime import datetime
+        entrada = datetime.strptime(fecha_entrada, '%Y-%m-%d').date()
+        salida = datetime.strptime(fecha_salida, '%Y-%m-%d').date()
+        dias = (salida - entrada).days
+        if salida <= entrada:
+            messages.error(request, 'La fecha de salida debe ser posterior a la entrada')
+            return render(request, 'admin_modificar_reserva.html', {'reserva': reserva})
+        if dias < 3 or dias > 12:
+            messages.error(request, 'La estadía debe ser entre 3 y 12 días')
+            return render(request, 'admin_modificar_reserva.html', {'reserva': reserva})
+        reserva.fecha_entrada = entrada
+        reserva.fecha_salida = salida
+        reserva.calcular_montos()
+        reserva.save()
+        messages.success(request, 'Reserva modificada correctamente')
+        return redirect('admin_reservas')
+    return render(request, 'admin_modificar_reserva.html', {'reserva': reserva})
+
+
+@staff_member_required(login_url='/login/')
+def admin_habitaciones(request):
+    habitaciones = Habitacion.objects.all().order_by('numero')
+    return render(request, 'admin_habitaciones.html', {'habitaciones': habitaciones})
+
+@staff_member_required(login_url='/login/')
+def admin_editar_habitacion(request, id):
+    habitacion = get_object_or_404(Habitacion, id=id)
+    if request.method == 'POST':
+        habitacion.numero = request.POST['numero']
+        habitacion.piso = request.POST['piso']
+        habitacion.categoria = request.POST['categoria']
+        habitacion.capacidad = request.POST['capacidad']
+        habitacion.precio_noche = request.POST['precio_noche']
+        habitacion.descripcion = request.POST['descripcion']
+        habitacion.disponible = 'disponible' in request.POST
+        habitacion.save()
+        messages.success(request, 'Habitación actualizada correctamente')
+        return redirect('admin_habitaciones')
+    return render(request, 'admin_editar_habitacion.html', {'habitacion': habitacion})

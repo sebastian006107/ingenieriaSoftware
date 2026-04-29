@@ -120,3 +120,30 @@ def confirmacion(request, id):
 def mis_reservas(request):
     reservas = Reserva.objects.filter(usuario=request.user).order_by('-fecha_creacion')
     return render(request, 'mis_reservas.html', {'reservas': reservas})
+
+
+
+from django.contrib.admin.views.decorators import staff_member_required
+
+@staff_member_required(login_url='/login/')
+def admin_dashboard(request):
+    from django.utils import timezone
+    total_reservas = Reserva.objects.count()
+    reservas_hoy = Reserva.objects.filter(fecha_creacion__date=timezone.now().date()).count()
+    habitaciones_disponibles = Habitacion.objects.filter(disponible=True).count()
+    reservas_recientes = Reserva.objects.order_by('-fecha_creacion')[:10]
+    
+    context = {
+        'total_reservas': total_reservas,
+        'reservas_hoy': reservas_hoy,
+        'habitaciones_disponibles': habitaciones_disponibles,
+        'reservas_recientes': reservas_recientes,
+    }
+    return render(request, 'admin_dashboard.html', context)
+
+@staff_member_required(login_url='/login/')
+def admin_cancelar_reserva(request, id):
+    reserva = get_object_or_404(Reserva, id=id)
+    reserva.estado = 'cancelada'
+    reserva.save()
+    return redirect('admin_dashboard')

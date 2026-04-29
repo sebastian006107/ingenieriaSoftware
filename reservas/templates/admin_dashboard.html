@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="admin-wrap">
+    <div class="sidebar">
+        <a class="sb-logo" href="{% url 'admin_dashboard' %}">Pacific Reef</a>
+        <div class="sb-section">Principal</div>
+        <a class="sb-item active" href="{% url 'admin_dashboard' %}"><div class="sb-dot"></div>Dashboard</a>
+        <a class="sb-item" href="#"><div class="sb-dot"></div>Reservas</a>
+        <a class="sb-item" href="#"><div class="sb-dot"></div>Habitaciones</a>
+        <a class="sb-item" href="#"><div class="sb-dot"></div>Usuarios</a>
+        <div class="sb-section">Cuenta</div>
+        <a class="sb-item" href="{% url 'logout' %}"><div class="sb-dot"></div>Cerrar sesión</a>
+    </div>
+    <div class="admin-content">
+        <div class="admin-header">
+            <div>
+                <p class="eyebrow">Panel de control</p>
+                <h1 class="admin-title">Dashboard</h1>
+            </div>
+            <div class="admin-date">{{ request.user.get_full_name }}</div>
+        </div>
+        <div class="metrics">
+            <div class="metric">
+                <div class="metric-label">Reservas hoy</div>
+                <div class="metric-val">{{ reservas_hoy }}</div>
+            </div>
+            <div class="metric">
+                <div class="metric-label">Total reservas</div>
+                <div class="metric-val gold">{{ total_reservas }}</div>
+            </div>
+            <div class="metric">
+                <div class="metric-label">Disponibles</div>
+                <div class="metric-val">{{ habitaciones_disponibles }}</div>
+            </div>
+            <div class="metric">
+                <div class="metric-label">Ocupación</div>
+                <div class="metric-val gold">{{ ocupacion }}%</div>
+            </div>
+        </div>
+        <div class="table-section-title">Reservas recientes</div>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Cliente</th>
+                    <th>Habitación</th>
+                    <th>Check-in</th>
+                    <th>Check-out</th>
+                    <th>Monto</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for reserva in reservas_recientes %}
+                <tr>
+                    <td style="color:#888780;">{{ reserva.id }}</td>
+                    <td>{{ reserva.usuario.get_full_name|default:reserva.usuario.username }}</td>
+                    <td>{{ reserva.habitacion.numero }} — {{ reserva.habitacion.get_categoria_display }}</td>
+                    <td>{{ reserva.fecha_entrada }}</td>
+                    <td>{{ reserva.fecha_salida }}</td>
+                    <td style="font-family:'Cormorant Garamond',serif; font-size:16px;">${{ reserva.monto_reserva }}</td>
+                    <td>
+                        <span class="{% if reserva.estado == 'confirmada' %}status-ok{% elif reserva.estado == 'cancelada' %}status-cancel{% else %}status-pend{% endif %}">
+                            {{ reserva.estado }}
+                        </span>
+                    </td>
+                    <td>
+                        {% if reserva.estado != 'cancelada' %}
+                        <a href="{% url 'admin_cancelar_reserva' reserva.id %}" class="action-btn danger" onclick="return confirm('¿Cancelar esta reserva?')">Cancelar</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="8" style="text-align:center; color:#888780; padding:24px;">No hay reservas registradas.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

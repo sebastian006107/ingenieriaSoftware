@@ -11,5 +11,7 @@ urlpatterns = [
     path('reservar/<int:id>/', views.reservar, name='reservar'),
     path('confirmacion/<int:id>/', views.confirmacion, name='confirmacion'),
     path('mis-reservas/', views.mis_reservas, name='mis_reservas'),
+    path('admin-panel/', views.admin_dashboard, name='admin_dashboard'),
+    path('admin-panel/cancelar/<int:id>/', views.admin_cancelar_reserva, name='admin_cancelar_reserva'),
     
 ]

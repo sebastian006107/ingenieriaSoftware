@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Pacific Reef</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'DM Sans', sans-serif; background: #F7F4EF; color: #1C1C1A; }
+        nav { background: #1C1C1A; padding: 0 48px; height: 64px; display: flex; align-items: center; justify-content: space-between; }
+        .logo { font-size: 18px; color: #F7F4EF; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; }
+        .nav-links a { color: #888780; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; text-decoration: none; margin-left: 24px; }
+        .btn-gold { background: #C9A96E; border: none; color: #1C1C1A; padding: 7px 18px; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; text-decoration: none; }
+        .container { padding: 48px; }
+        .messages { padding: 12px 48px; background: #fff3cd; color: #856404; font-size: 13px; }
+    </style>
+</head>
+<body>
+<nav>
+    <a class="logo" href="{% url 'inicio' %}">Pacific Reef</a>
+    <div class="nav-links">
+        <a href="{% url 'catalogo' %}">Habitaciones</a>
+        {% if user.is_authenticated %}
+            <a href="{% url 'logout' %}">Cerrar sesión</a>
+        {% else %}
+            <a href="{% url 'login' %}" class="btn-gold">Ingresar</a>
+        {% endif %}
+    </div>
+</nav>
+{% if messages %}
+<div class="messages">
+    {% for message in messages %}{{ message }}{% endfor %}
+</div>
+{% endif %}
+{% block content %}{% endblock %}
+</body>
+</html>

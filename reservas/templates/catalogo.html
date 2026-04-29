@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <h1>Habitaciones disponibles</h1>
+    <a href="?categoria=turista">Turista</a> | 
+    <a href="?categoria=premium">Premium</a> | 
+    <a href="?categoria=">Todas</a>
+    <br><br>
+    {% for hab in habitaciones %}
+    <div>
+        <p>Hab. {{ hab.numero }} - Piso {{ hab.piso }} - {{ hab.categoria }}</p>
+        <p>Capacidad: {{ hab.capacidad }} personas</p>
+        <p>Precio: ${{ hab.precio_noche }} / noche</p>
+        <a href="{% url 'detalle_habitacion' hab.id %}">Ver detalle</a>
+    </div>
+    <hr>
+    {% endfor %}
+</div>
+{% endblock %}

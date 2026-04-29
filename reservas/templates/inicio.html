@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<div style="background:#1C1C1A; padding: 72px 48px;">
+    <h1 style="font-size:48px; color:#F7F4EF; font-weight:300; margin-bottom:16px;">
+        Esse dolores at officiis placeat deleniti repellendus <em style="color:#C9A96E;">laborum nam aspernatur</em>
+    </h1>
+    <p style="color:#888780; margin-bottom:32px;">38 habitaciones entre categorías Turista y Premium.</p>
+    <a href="{% url 'catalogo' %}" class="btn-gold" style="padding:14px 32px; font-size:12px;">Ver habitaciones</a>
+</div>
+<div class="container">
+    <h2 style="font-size:32px; font-weight:300; margin-bottom:24px;">Habitaciones disponibles</h2>
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:#D3D1C7;">
+        {% for hab in habitaciones %}
+        <div style="background:#F7F4EF; padding:20px;">
+            <div style="background:#2C2C2A; height:140px; margin-bottom:16px; display:flex; align-items:flex-end; padding:10px;">
+                <span style="background:{% if hab.categoria == 'premium' %}#C9A96E{% else %}#F7F4EF{% endif %}; padding:3px 10px; font-size:9px; letter-spacing:1px; text-transform:uppercase;">{{ hab.categoria }}</span>
+            </div>
+            <p style="font-size:10px; color:#888780; text-transform:uppercase; letter-spacing:1px;">Hab. {{ hab.numero }} · Piso {{ hab.piso }}</p>
+            <p style="font-size:20px; font-weight:300; margin:6px 0;">{{ hab.get_categoria_display }}</p>
+            <p style="font-size:11px; color:#888780;">Capacidad: {{ hab.capacidad }} personas</p>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:14px; padding-top:14px; border-top:0.5px solid #D3D1C7;">
+                <span style="font-size:22px; font-weight:300;">${{ hab.precio_noche }}</span>
+                <a href="{% url 'detalle_habitacion' hab.id %}" style="border:0.5px solid #1C1C1A; padding:7px 14px; font-size:9px; letter-spacing:1px; text-transform:uppercase; text-decoration:none; color:#1C1C1A;">Ver detalle</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

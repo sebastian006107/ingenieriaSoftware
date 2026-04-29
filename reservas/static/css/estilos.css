@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap');
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'DM Sans', sans-serif; background: #F7F4EF; color: #1C1C1A; }
+
+/* NAVBAR */
+nav { background: #1C1C1A; padding: 0 48px; height: 64px; display: flex; align-items: center; justify-content: space-between; }
+.logo { font-family: 'Cormorant Garamond', serif; font-size: 19px; font-weight: 300; color: #F7F4EF; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; }
+.nav-links { display: flex; align-items: center; gap: 24px; }
+.nav-links a { color: #888780; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; text-decoration: none; }
+.nav-links a:hover { color: #F7F4EF; }
+.nav-user { color: #C9A96E; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; }
+.btn-gold { background: #C9A96E; color: #1C1C1A !important; padding: 7px 18px; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; text-decoration: none; }
+.btn-gold:hover { background: #BA8A4E; }
+
+/* GENERAL */
+.container { padding: 48px; }
+.messages { padding: 12px 48px; font-size: 13px; }
+.messages p { padding: 10px 0; color: #856404; }
+
+/* INICIO - HERO */
+.hero { background: #1C1C1A; padding: 72px 48px; }
+.hero-title { font-size: 48px; color: #F7F4EF; font-weight: 300; margin-bottom: 16px; }
+.hero-title em { color: #C9A96E; }
+.hero-sub { color: #888780; margin-bottom: 32px; }
+.btn-gold-lg { padding: 14px 32px; font-size: 12px; }
+
+/* INICIO - ROOMS GRID */
+.rooms-section { padding: 48px; }
+.rooms-section h2 { font-size: 32px; font-weight: 300; margin-bottom: 24px; }
+.rooms-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: #D3D1C7; }
+.room-card { background: #F7F4EF; padding: 20px; }
+.room-card-img { background: #2C2C2A; height: 140px; margin-bottom: 16px; display: flex; align-items: flex-end; padding: 10px; }
+.badge-premium { background: #C9A96E; padding: 3px 10px; font-size: 9px; letter-spacing: 1px; text-transform: uppercase; }
+.badge-turista { background: #F7F4EF; padding: 3px 10px; font-size: 9px; letter-spacing: 1px; text-transform: uppercase; }
+.room-card-num { font-size: 10px; color: #888780; text-transform: uppercase; letter-spacing: 1px; }
+.room-card-name { font-size: 20px; font-weight: 300; margin: 6px 0; }
+.room-card-cap { font-size: 11px; color: #888780; }
+.room-card-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 14px; padding-top: 14px; border-top: 0.5px solid #D3D1C7; }
+.room-card-price { font-size: 22px; font-weight: 300; }
+.btn-outline { border: 0.5px solid #1C1C1A; padding: 7px 14px; font-size: 9px; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; color: #1C1C1A; }
+.btn-outline:hover { background: #C9A96E; border-color: #C9A96E; }
+
+
+/* FORMULARIOS */
+.form-wrap { background: #1C1C1A; min-height: 520px; display: flex; align-items: center; justify-content: center; padding: 40px; }
+.form-card { background: #F7F4EF; width: 100%; max-width: 400px; padding: 40px; }
+.form-card-wide { background: #F7F4EF; width: 100%; max-width: 420px; padding: 40px; }
+.eyebrow { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #C9A96E; margin-bottom: 14px; }
+.form-title { font-size: 32px; font-weight: 300; margin-bottom: 4px; }
+.form-title-lg { font-size: 32px; font-weight: 300; margin-bottom: 28px; }
+.form-sub { font-size: 12px; color: #888780; margin-bottom: 28px; }
+.input-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #888780; margin-bottom: 6px; display: block; }
+.input-field { width: 100%; padding: 10px 0; border: none; border-bottom: 1px solid #D3D1C7; background: transparent; font-size: 14px; margin-bottom: 18px; outline: none; }
+.input-field-last { width: 100%; padding: 10px 0; border: none; border-bottom: 1px solid #D3D1C7; background: transparent; font-size: 14px; margin-bottom: 24px; outline: none; }
+.btn-primary { width: 100%; background: #1C1C1A; color: #F7F4EF; border: none; padding: 13px; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; }
+.form-link { font-size: 12px; color: #888780; text-align: center; margin-top: 16px; }
+.form-link a { color: #C9A96E; text-decoration: none; }
+
+/* CATALOGO */
+.catalog-filter-links { margin-bottom: 16px; }
+.catalog-filter-links a { color: #888780; font-size: 11px; text-decoration: none; margin-right: 8px; }
+.catalog-filter-links a:hover { color: #1C1C1A; }
+.room-list-item { margin-bottom: 16px; padding-bottom: 16px; border-bottom: 0.5px solid #D3D1C7; }
+.room-list-item p { font-size: 13px; color: #888780; margin-bottom: 4px; }
+.room-list-item a { font-size: 11px; color: #C9A96E; text-decoration: none; }
+
+/* DETALLE */
+.detail-back { font-size: 11px; color: #888780; text-decoration: none; display: inline-block; margin-bottom: 16px; }
+.detail-title { font-size: 28px; font-weight: 300; margin-bottom: 8px; }
+.detail-info p { font-size: 13px; color: #888780; margin-bottom: 6px; }
+.detail-link { font-size: 12px; color: #C9A96E; text-decoration: none; display: inline-block; margin-top: 16px; }
+
+/* RESERVAR */
+.reservar-title { font-size: 28px; font-weight: 300; margin-bottom: 8px; }
+.reservar-price { font-size: 13px; color: #888780; margin-bottom: 24px; }
+.reservar-label { display: block; font-size: 12px; color: #888780; margin-bottom: 4px; }
+.reservar-input { width: 100%; padding: 8px 0; border: none; border-bottom: 1px solid #D3D1C7; background: transparent; font-size: 14px; margin-bottom: 16px; outline: none; }
+.reservar-btn { background: #1C1C1A; color: #F7F4EF; border: none; padding: 12px 24px; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; margin-top: 8px; }
+
+/* CONFIRMACION */
+.confirm-title { font-size: 28px; font-weight: 300; margin-bottom: 16px; }
+.confirm-info p { font-size: 13px; color: #888780; margin-bottom: 6px; }
+.confirm-link { font-size: 12px; color: #C9A96E; text-decoration: none; display: inline-block; margin-top: 16px; }
+
+/* MIS RESERVAS */
+.reservas-title { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 300; margin-bottom: 24px; }
+.reservas-list { display: flex; flex-direction: column; gap: 1px; background: #D3D1C7; }
+.reserva-item { background: #F7F4EF; display: grid; grid-template-columns: 1fr auto; align-items: center; padding: 20px 24px; }
+.reserva-id { font-size: 10px; color: #888780; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+.reserva-nombre { font-size: 18px; font-weight: 300; margin-bottom: 6px; }
+.reserva-fechas { font-size: 12px; color: #888780; }
+.reserva-monto { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 300; text-align: right; }
+.reserva-monto-label { font-size: 10px; color: #888780; margin-bottom: 8px; text-align: right; }
+.badge-confirmada { padding: 3px 10px; font-size: 9px; letter-spacing: 1px; text-transform: uppercase; border: 0.5px solid #C9A96E; color: #BA8A4E; }
+.badge-cancelada { padding: 3px 10px; font-size: 9px; letter-spacing: 1px; text-transform: uppercase; border: 0.5px solid #B4B2A9; color: #5F5E5A; }
+.badge-pendiente { padding: 3px 10px; font-size: 9px; letter-spacing: 1px; text-transform: uppercase; border: 0.5px solid #D3D1C7; color: #888780; }
+.reservas-empty { font-size: 14px; color: #888780; }

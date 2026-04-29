@@ -1,15 +1,15 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container">
-    <h1>Reservar Habitación {{ habitacion.numero }}</h1>
-    <p>Precio: ${{ habitacion.precio_noche }} / noche</p>
+    <h1 class="reservar-title">Reservar Habitación {{ habitacion.numero }}</h1>
+    <p class="reservar-price">Precio: ${{ habitacion.precio_noche }} / noche</p>
     <form method="post">
         {% csrf_token %}
-        <label>Fecha entrada:</label>
-        <input type="date" name="fecha_entrada" required><br><br>
-        <label>Fecha salida:</label>
-        <input type="date" name="fecha_salida" required><br><br>
-        <button type="submit">Confirmar reserva</button>
+        <label class="reservar-label">Fecha entrada:</label>
+        <input class="reservar-input" type="date" name="fecha_entrada" required>
+        <label class="reservar-label">Fecha salida:</label>
+        <input class="reservar-input" type="date" name="fecha_salida" required>
+        <button type="submit" class="reservar-btn">Confirmar reserva</button>
     </form>
 </div>
 {% endblock %}

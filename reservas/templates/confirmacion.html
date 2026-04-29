@@ -1,14 +1,16 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container">
-    <h1>¡Reserva confirmada!</h1>
-    <p>Código: #{{ reserva.id }}</p>
-    <p>Habitación: {{ reserva.habitacion.numero }}</p>
-    <p>Check-in: {{ reserva.fecha_entrada }}</p>
-    <p>Check-out: {{ reserva.fecha_salida }}</p>
-    <p>Total estadía: ${{ reserva.total_estadía }}</p>
-    <p>Monto pagado (30%): ${{ reserva.monto_reserva }}</p>
-    <p>Saldo al check-in (70%): ${{ reserva.monto_pendiente }}</p>
-    <a href="{% url 'inicio' %}">Volver al inicio</a>
+    <h1 class="confirm-title">¡Reserva confirmada!</h1>
+    <div class="confirm-info">
+        <p>Código: #{{ reserva.id }}</p>
+        <p>Habitación: {{ reserva.habitacion.numero }}</p>
+        <p>Check-in: {{ reserva.fecha_entrada }}</p>
+        <p>Check-out: {{ reserva.fecha_salida }}</p>
+        <p>Total estadía: ${{ reserva.total_estadía }}</p>
+        <p>Monto pagado (30%): ${{ reserva.monto_reserva }}</p>
+        <p>Saldo al check-in (70%): ${{ reserva.monto_pendiente }}</p>
+    </div>
+    <a class="confirm-link" href="{% url 'inicio' %}">Volver al inicio</a>
 </div>
 {% endblock %}

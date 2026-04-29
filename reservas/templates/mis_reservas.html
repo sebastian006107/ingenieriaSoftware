@@ -1,26 +1,28 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container">
-    <h1 style="font-family:'Cormorant Garamond',serif; font-size:32px; font-weight:300; margin-bottom:24px;">Mis reservas</h1>
+    <h1 class="reservas-title">Mis reservas</h1>
     {% if reservas %}
-    <div style="display:flex; flex-direction:column; gap:1px; background:#D3D1C7;">
+    <div class="reservas-list">
         {% for reserva in reservas %}
-        <div style="background:#F7F4EF; display:grid; grid-template-columns:1fr auto; align-items:center; padding:20px 24px;">
+        <div class="reserva-item">
             <div>
-                <p style="font-size:10px; color:#888780; text-transform:uppercase; letter-spacing:1px; margin-bottom:4px;">Reserva #{{ reserva.id }}</p>
-                <p style="font-size:18px; font-weight:300; margin-bottom:6px;">Habitación {{ reserva.habitacion.numero }} — {{ reserva.habitacion.get_categoria_display }}</p>
-                <p style="font-size:12px; color:#888780;">Check-in: {{ reserva.fecha_entrada }} · Check-out: {{ reserva.fecha_salida }}</p>
+                <p class="reserva-id">Reserva #{{ reserva.id }}</p>
+                <p class="reserva-nombre">Habitación {{ reserva.habitacion.numero }} — {{ reserva.habitacion.get_categoria_display }}</p>
+                <p class="reserva-fechas">Check-in: {{ reserva.fecha_entrada }} · Check-out: {{ reserva.fecha_salida }}</p>
             </div>
-            <div style="text-align:right;">
-                <p style="font-family:'Cormorant Garamond',serif; font-size:22px; font-weight:300;">${{ reserva.monto_reserva }}</p>
-                <p style="font-size:10px; color:#888780; margin-bottom:8px;">pagado (30%)</p>
-                <span style="background:{% if reserva.estado == 'confirmada' %}#F7F4EF; border:0.5px solid #C9A96E; color:#BA8A4E{% elif reserva.estado == 'cancelada' %}#F7F4EF; border:0.5px solid #B4B2A9; color:#5F5E5A{% else %}#F7F4EF; border:0.5px solid #D3D1C7; color:#888780{% endif %}; padding:3px 10px; font-size:9px; letter-spacing:1px; text-transform:uppercase;">{{ reserva.estado }}</span>
+            <div>
+                <p class="reserva-monto">${{ reserva.monto_reserva }}</p>
+                <p class="reserva-monto-label">pagado (30%)</p>
+                <span class="{% if reserva.estado == 'confirmada' %}badge-confirmada{% elif reserva.estado == 'cancelada' %}badge-cancelada{% else %}badge-pendiente{% endif %}">
+                    {{ reserva.estado }}
+                </span>
             </div>
         </div>
         {% endfor %}
     </div>
     {% else %}
-    <p style="color:#888780; font-size:14px;">No tenés reservas activas.</p>
+    <p class="reservas-empty">No tienes reservas activas.</p>
     {% endif %}
 </div>
 {% endblock %}

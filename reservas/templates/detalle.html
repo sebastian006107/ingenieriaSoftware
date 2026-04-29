@@ -1,13 +1,15 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container">
-    <a href="{% url 'catalogo' %}">← Volver al catálogo</a>
-    <h1>Habitación {{ habitacion.numero }}</h1>
-    <p>Categoría: {{ habitacion.get_categoria_display }}</p>
-    <p>Piso: {{ habitacion.piso }}</p>
-    <p>Capacidad: {{ habitacion.capacidad }} personas</p>
-    <p>Precio: ${{ habitacion.precio_noche }} / noche</p>
-    <p>{{ habitacion.descripcion }}</p>
-    <a href="{% url 'reservar' habitacion.id %}">Reservar</a>
+    <a class="detail-back" href="{% url 'catalogo' %}">← Volver al catálogo</a>
+    <h1 class="detail-title">Habitación {{ habitacion.numero }}</h1>
+    <div class="detail-info">
+        <p>Categoría: {{ habitacion.get_categoria_display }}</p>
+        <p>Piso: {{ habitacion.piso }}</p>
+        <p>Capacidad: {{ habitacion.capacidad }} personas</p>
+        <p>Precio: ${{ habitacion.precio_noche }} / noche</p>
+        <p>{{ habitacion.descripcion }}</p>
+    </div>
+    <a class="detail-link" href="{% url 'reservar' habitacion.id %}">Reservar</a>
 </div>
 {% endblock %}

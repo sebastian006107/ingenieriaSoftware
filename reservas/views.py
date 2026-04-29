@@ -2,12 +2,42 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import Habitacion, Reserva
+from .models import Habitacion, Reserva, Usuario
 from datetime import date
 
 def inicio(request):
     habitaciones = Habitacion.objects.filter(disponible=True)[:3]
     return render(request, 'inicio.html', {'habitaciones': habitaciones})
+
+def registro_view(request):
+    if request.method == 'POST':
+        rut = request.POST['rut']
+        username = request.POST['username']
+        nombre = request.POST['nombre']
+        apellido = request.POST['apellido']
+        email = request.POST['email']
+        password = request.POST['password']
+
+        if Usuario.objects.filter(rut=rut).exists():
+            messages.error(request, 'El RUT ya está registrado')
+            return render(request, 'registro.html')
+
+        user = Usuario.objects.create_user(
+            username=username,
+            rut=rut,
+            first_name=nombre,
+            last_name=apellido,
+            email=email,
+            password=password,
+            rol='cliente'
+        )
+        login(request, user)
+        return redirect('inicio')
+
+    return render(request, 'registro.html')
+
+
+
 
 def login_view(request):
     if request.method == 'POST':
@@ -85,3 +115,8 @@ def reservar(request, id):
 def confirmacion(request, id):
     reserva = get_object_or_404(Reserva, id=id)
     return render(request, 'confirmacion.html', {'reserva': reserva})
+
+@login_required
+def mis_reservas(request):
+    reservas = Reserva.objects.filter(usuario=request.user).order_by('-fecha_creacion')
+    return render(request, 'mis_reservas.html', {'reservas': reservas})

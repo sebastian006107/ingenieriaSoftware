@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<div style="background:#1C1C1A; min-height:520px; display:flex; align-items:center; justify-content:center; padding:40px;">
+    <div style="background:#F7F4EF; width:100%; max-width:420px; padding:40px;">
+        <p style="font-size:10px; letter-spacing:3px; text-transform:uppercase; color:#C9A96E; margin-bottom:14px;">Nuevo usuario</p>
+        <h2 style="font-size:32px; font-weight:300; margin-bottom:28px;">Crear cuenta</h2>
+        <form method="post">
+            {% csrf_token %}
+            <p style="font-size:10px; letter-spacing:2px; text-transform:uppercase; color:#888780; margin-bottom:6px;">Nombre</p>
+            <input name="nombre" placeholder="Juan" style="width:100%; padding:10px 0; border:none; border-bottom:1px solid #D3D1C7; background:transparent; font-size:14px; margin-bottom:18px; outline:none;">
+            <p style="font-size:10px; letter-spacing:2px; text-transform:uppercase; color:#888780; margin-bottom:6px;">Apellido</p>
+            <input name="apellido" placeholder="González" style="width:100%; padding:10px 0; border:none; border-bottom:1px solid #D3D1C7; background:transparent; font-size:14px; margin-bottom:18px; outline:none;">
+            <p style="font-size:10px; letter-spacing:2px; text-transform:uppercase; color:#888780; margin-bottom:6px;">RUT</p>
+            <input name="rut" placeholder="12.345.678-9" style="width:100%; padding:10px 0; border:none; border-bottom:1px solid #D3D1C7; background:transparent; font-size:14px; margin-bottom:18px; outline:none;">
+            <p style="font-size:10px; letter-spacing:2px; text-transform:uppercase; color:#888780; margin-bottom:6px;">Username</p>
+            <input name="username" placeholder="juangonzalez" style="width:100%; padding:10px 0; border:none; border-bottom:1px solid #D3D1C7; background:transparent; font-size:14px; margin-bottom:18px; outline:none;">
+            <p style="font-size:10px; letter-spacing:2px; text-transform:uppercase; color:#888780; margin-bottom:6px;">Correo electrónico</p>
+            <input name="email" type="email" placeholder="correo@ejemplo.com" style="width:100%; padding:10px 0; border:none; border-bottom:1px solid #D3D1C7; background:transparent; font-size:14px; margin-bottom:18px; outline:none;">
+            <p style="font-size:10px; letter-spacing:2px; text-transform:uppercase; color:#888780; margin-bottom:6px;">Clave</p>
+            <input name="password" type="password" placeholder="••••••••" style="width:100%; padding:10px 0; border:none; border-bottom:1px solid #D3D1C7; background:transparent; font-size:14px; margin-bottom:24px; outline:none;">
+            <button type="submit" style="width:100%; background:#1C1C1A; color:#F7F4EF; border:none; padding:13px; font-size:11px; letter-spacing:2px; text-transform:uppercase; cursor:pointer;">Crear cuenta</button>
+        </form>
+        <p style="font-size:12px; color:#888780; text-align:center; margin-top:16px;">¿Ya tienes cuenta? <a href="{% url 'login' %}" style="color:#C9A96E;">Inicia sesión aquí</a></p>
+    </div>
+</div>
+{% endblock %}

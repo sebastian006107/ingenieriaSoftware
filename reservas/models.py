@@ -48,6 +48,19 @@ class Reserva(models.Model):
     estado = models.CharField(max_length=10, choices=ESTADO_CHOICES, default='pendiente')
     fecha_creacion = models.DateTimeField(auto_now_add=True)
 
+class ImagenHabitacion(models.Model):
+    habitacion = models.ForeignKey(Habitacion, on_delete=models.CASCADE, related_name='imagenes')
+    imagen = models.ImageField(upload_to='habitaciones/')
+    descripcion = models.CharField(max_length=100, blank=True)
+    orden = models.IntegerField(default=0)
+
+    def __str__(self):
+        return f"Imagen {self.id} - Habitación {self.habitacion.numero}"
+
+    class Meta:
+        ordering = ['orden']
+
+
     def calcular_montos(self):
         from decimal import Decimal
         dias = (self.fecha_salida - self.fecha_entrada).days

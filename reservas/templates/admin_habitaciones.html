@@ -27,6 +27,7 @@
                     <th>Capacidad</th>
                     <th>Precio noche</th>
                     <th>Disponible</th>
+                    <th>Fotos</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -45,8 +46,10 @@
                             <span class="status-cancel">No disponible</span>
                         {% endif %}
                     </td>
+                    <td style="font-size:12px; color:#888780;">{{ hab.imagenes.count }} foto{% if hab.imagenes.count != 1 %}s{% endif %}</td>
                     <td>
                         <a href="{% url 'admin_editar_habitacion' hab.id %}" class="action-btn">Editar</a>
+                        <a href="{% url 'admin_subir_imagen' hab.id %}" class="action-btn">Fotos</a>
                     </td>
                 </tr>
                 {% endfor %}

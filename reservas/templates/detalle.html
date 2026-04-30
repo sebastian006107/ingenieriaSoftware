@@ -2,14 +2,51 @@
 {% block content %}
 <div class="container">
     <a class="detail-back" href="{% url 'catalogo' %}">← Volver al catálogo</a>
-    <h1 class="detail-title">Habitación {{ habitacion.numero }}</h1>
-    <div class="detail-info">
-        <p>Categoría: {{ habitacion.get_categoria_display }}</p>
-        <p>Piso: {{ habitacion.piso }}</p>
-        <p>Capacidad: {{ habitacion.capacidad }} personas</p>
-        <p>Precio: ${{ habitacion.precio_noche }} / noche</p>
-        <p>{{ habitacion.descripcion }}</p>
+
+    {% with imagenes=habitacion.imagenes.all %}
+    {% if imagenes %}
+    <div class="gallery-grid">
+        <div class="gallery-main">
+            <img src="{{ imagenes.0.imagen.url }}">
+        </div>
+        <div class="gallery-side">
+            {% if imagenes.1 %}
+            <div class="gallery-thumb"><img src="{{ imagenes.1.imagen.url }}"></div>
+            {% else %}
+            <div class="gallery-thumb"></div>
+            {% endif %}
+            {% if imagenes.2 %}
+            <div class="gallery-thumb-2"><img src="{{ imagenes.2.imagen.url }}"></div>
+            {% else %}
+            <div class="gallery-thumb-2"></div>
+            {% endif %}
+        </div>
     </div>
-    <a class="detail-link" href="{% url 'reservar' habitacion.id %}">Reservar</a>
+    {% else %}
+    <div class="gallery-empty">
+        <span class="gallery-empty-text">Sin fotos disponibles</span>
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <div class="detail-grid">
+        <div>
+            <div class="detail-badge-row">
+                <h1 class="detail-title">Habitación {{ habitacion.numero }}</h1>
+                <span class="{% if habitacion.categoria == 'premium' %}badge-p{% else %}badge-t{% endif %}">{{ habitacion.get_categoria_display }}</span>
+            </div>
+            <div class="detail-info">
+                <p>Categoría: {{ habitacion.get_categoria_display }}</p>
+                <p>Piso: {{ habitacion.piso }}</p>
+                <p>Capacidad: {{ habitacion.capacidad }} personas</p>
+                <p>Precio: ${{ habitacion.precio_noche }} / noche</p>
+                <p>{{ habitacion.descripcion }}</p>
+            </div>
+        </div>
+        <div class="booking-side">
+            <h2 class="booking-side-title">Reservar estadía</h2>
+            <a href="{% url 'reservar' habitacion.id %}" class="btn-reservar">Reservar habitación</a>
+        </div>
+    </div>
 </div>
 {% endblock %}

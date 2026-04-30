@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import Habitacion, Reserva, Usuario
+from .models import Habitacion, Reserva, Usuario, ImagenHabitacion
 from datetime import date
 
 def inicio(request):
@@ -203,3 +203,29 @@ def admin_editar_habitacion(request, id):
         messages.success(request, 'Habitación actualizada correctamente')
         return redirect('admin_habitaciones')
     return render(request, 'admin_editar_habitacion.html', {'habitacion': habitacion})
+
+
+@staff_member_required(login_url='/login/')
+def admin_subir_imagen(request, id):
+    habitacion = get_object_or_404(Habitacion, id=id)
+    if request.method == 'POST':
+        imagen = request.FILES.get('imagen')
+        descripcion = request.POST.get('descripcion', '')
+        if imagen:
+            ImagenHabitacion.objects.create(
+                habitacion=habitacion,
+                imagen=imagen,
+                descripcion=descripcion
+            )
+            messages.success(request, 'Imagen subida correctamente')
+        return redirect('admin_subir_imagen', id=id)
+    imagenes = habitacion.imagenes.all()
+    return render(request, 'admin_subir_imagen.html', {'habitacion': habitacion, 'imagenes': imagenes})
+
+@staff_member_required(login_url='/login/')
+def admin_eliminar_imagen(request, id):
+    imagen = get_object_or_404(ImagenHabitacion, id=id)
+    habitacion_id = imagen.habitacion.id
+    imagen.imagen.delete()
+    imagen.delete()
+    return redirect('admin_subir_imagen', id=habitacion_id)

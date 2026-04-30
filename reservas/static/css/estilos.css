@@ -128,3 +128,21 @@ nav { background: #1C1C1A; padding: 0 48px; height: 64px; display: flex; align-i
 .status-ok { background: #F7F4EF; border: 0.5px solid #C9A96E; color: #BA8A4E; padding: 3px 10px; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; }
 .status-pend { background: #F7F4EF; border: 0.5px solid #D3D1C7; color: #888780; padding: 3px 10px; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; }
 .status-cancel { background: #F7F4EF; border: 0.5px solid #B4B2A9; color: #5F5E5A; padding: 3px 10px; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; }
+
+
+/* DETALLE HABITACION */
+.gallery-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 4px; height: 280px; margin-bottom: 24px; }
+.gallery-main { background: #2C2C2A; overflow: hidden; }
+.gallery-main img { width: 100%; height: 100%; object-fit: cover; }
+.gallery-side { display: grid; grid-template-rows: 1fr 1fr; gap: 4px; }
+.gallery-thumb { background: #3D3A35; overflow: hidden; }
+.gallery-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.gallery-thumb-2 { background: #1C1C1A; overflow: hidden; }
+.gallery-thumb-2 img { width: 100%; height: 100%; object-fit: cover; }
+.gallery-empty { background: #2C2C2A; height: 280px; margin-bottom: 24px; display: flex; align-items: center; justify-content: center; }
+.gallery-empty-text { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #444441; }
+.detail-grid { display: grid; grid-template-columns: 1fr 320px; gap: 32px; }
+.detail-badge-row { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+.booking-side { background: #1C1C1A; padding: 28px; }
+.booking-side-title { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 300; color: #F7F4EF; margin-bottom: 20px; }
+.btn-reservar { width: 100%; background: #C9A96E; color: #1C1C1A; border: none; padding: 14px; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; display: block; text-align: center; text-decoration: none; font-weight: 500; }

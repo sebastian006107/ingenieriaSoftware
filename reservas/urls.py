@@ -17,5 +17,7 @@ urlpatterns = [
     path('admin-panel/reservas/modificar/<int:id>/', views.admin_modificar_reserva, name='admin_modificar_reserva'),
     path('admin-panel/habitaciones/', views.admin_habitaciones, name='admin_habitaciones'),
     path('admin-panel/habitaciones/editar/<int:id>/', views.admin_editar_habitacion, name='admin_editar_habitacion'),
+    path('admin-panel/habitaciones/imagenes/<int:id>/', views.admin_subir_imagen, name='admin_subir_imagen'),
+    path('admin-panel/habitaciones/imagenes/eliminar/<int:id>/', views.admin_eliminar_imagen, name='admin_eliminar_imagen'),
 
 ]

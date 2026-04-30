@@ -36,7 +36,7 @@
                 <tr>
                     <td>{{ hab.numero }}</td>
                     <td>{{ hab.piso }}</td>
-                    <td><span class="{% if hab.categoria == 'premium' %}badge-p{% else %}badge-t{% endif %}">{{ hab.get_categoria_display }}</span></td>
+                    <td><span class="{% if hab.categoria == 'premium' %}badge-premium{% else %}badge-turista{% endif %}">{{ hab.get_categoria_display }}</span></td>
                     <td>{{ hab.capacidad }} personas</td>
                     <td style="font-family:'Cormorant Garamond',serif; font-size:16px;">${{ hab.precio_noche }}</td>
                     <td>

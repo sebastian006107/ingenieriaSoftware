@@ -92,7 +92,6 @@ nav { background: #1C1C1A; padding: 0 48px; height: 64px; display: flex; align-i
 .detail-back { font-size: 11px; color: #888780; text-decoration: none; display: inline-block; margin-bottom: 16px; }
 .detail-title { font-size: 28px; font-weight: 300; margin-bottom: 8px; }
 .detail-info p { font-size: 13px; color: #888780; margin-bottom: 6px; }
-.detail-link { font-size: 12px; color: #C9A96E; text-decoration: none; display: inline-block; margin-top: 16px; }
 
 /* RESERVAR */
 .reservar-title { font-size: 28px; font-weight: 300; margin-bottom: 8px; }
@@ -151,19 +150,47 @@ nav { background: #1C1C1A; padding: 0 48px; height: 64px; display: flex; align-i
 .status-ok { background: #F7F4EF; border: 0.5px solid #C9A96E; color: #BA8A4E; padding: 3px 10px; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; }
 .status-pend { background: #F7F4EF; border: 0.5px solid #D3D1C7; color: #888780; padding: 3px 10px; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; }
 .status-cancel { background: #F7F4EF; border: 0.5px solid #B4B2A9; color: #5F5E5A; padding: 3px 10px; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; }
+.admin-form-grid { display: grid; grid-template-columns: 1fr 320px; gap: 32px; }
+.admin-upload-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+.admin-check-row { display: flex; align-items: center; gap: 10px; margin-bottom: 24px; }
+.admin-filter-bar { display: flex; gap: 8px; margin-bottom: 20px; }
+.btn-primary-sm { width: auto; padding: 12px 32px; }
+.admin-side-panel { background: #1C1C1A; padding: 28px; }
+.admin-side-label { font-size: 12px; color: #888780; margin-bottom: 8px; }
+.admin-side-price { font-family: 'Cormorant Garamond', serif; font-size: 22px; color: #C9A96E; margin-bottom: 16px; }
+.admin-side-value { font-size: 18px; font-weight: 300; color: #F7F4EF; }
+.admin-side-value-sm { font-size: 14px; color: #F7F4EF; margin-bottom: 16px; }
+.admin-sub-title { font-size: 14px; letter-spacing: 1px; text-transform: uppercase; color: #888780; margin-bottom: 16px; }
+.admin-file-input { width: 100%; padding: 10px 0; border: none; border-bottom: 1px solid #D3D1C7; margin-bottom: 18px; font-size: 13px; background: transparent; }
+.admin-img-list { display: flex; flex-direction: column; gap: 8px; }
+.admin-img-row { display: grid; grid-template-columns: 80px 1fr auto; gap: 12px; align-items: center; background: #fff; border: 0.5px solid #D3D1C7; padding: 10px; }
+.admin-img-thumb { width: 80px; height: 60px; object-fit: cover; }
+.admin-img-desc { font-size: 12px; color: #888780; }
+.admin-empty-msg { font-size: 13px; color: #888780; }
+.admin-badge-wrap { margin-bottom: 16px; }
+.td-id { color: #888780; }
+.td-price { font-family: 'Cormorant Garamond', serif; font-size: 16px; }
+/* MENSAJES */
+.msg-error { color: #8B1A1A; background: #FDF2F2; border-left: 2px solid #8B1A1A; padding: 10px 14px; }
+.msg-success { color: #2D5A27; background: #F2FDF2; border-left: 2px solid #2D5A27; padding: 10px 14px; }
+.msg-info { color: #856404; background: #FFF9E6; border-left: 2px solid #856404; padding: 10px 14px; }
 
 
+/* CARRUSEL DETALLE */
+.carousel { position: relative; aspect-ratio: 16/9; max-width: 700px; overflow: hidden; background: #1C1C1A; margin: 0 auto 32px; }
+.carousel-track { display: flex; height: 100%; transition: transform 0.35s ease; }
+.carousel-slide { min-width: 100%; height: 100%; flex-shrink: 0; }
+.carousel-slide img { width: 100%; height: 100%; object-fit: contain; object-position: center; display: block; }
+.carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(247,244,239,0.15); border: 0.5px solid rgba(247,244,239,0.3); color: #F7F4EF; font-size: 26px; width: 40px; height: 40px; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 2; line-height: 1; }
+.carousel-prev { left: 12px; }
+.carousel-next { right: 12px; }
+.carousel-btn:hover { background: rgba(201,169,110,0.85); border-color: #C9A96E; color: #1C1C1A; }
+.carousel-dots { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; }
+.carousel-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(247,244,239,0.35); cursor: pointer; border: none; padding: 0; }
+.carousel-dot.active { background: #C9A96E; }
+.carousel-empty { aspect-ratio: 16/9; max-width: 700px; background: #1C1C1A; margin: 0 auto 32px; display: flex; align-items: center; justify-content: center; }
+.carousel-empty-text { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #444441; }
 /* DETALLE HABITACION */
-.gallery-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 4px; height: 280px; margin-bottom: 24px; }
-.gallery-main { background: #2C2C2A; overflow: hidden; }
-.gallery-main img { width: 100%; height: 100%; object-fit: cover; }
-.gallery-side { display: grid; grid-template-rows: 1fr 1fr; gap: 4px; }
-.gallery-thumb { background: #3D3A35; overflow: hidden; }
-.gallery-thumb img { width: 100%; height: 100%; object-fit: cover; }
-.gallery-thumb-2 { background: #1C1C1A; overflow: hidden; }
-.gallery-thumb-2 img { width: 100%; height: 100%; object-fit: cover; }
-.gallery-empty { background: #2C2C2A; height: 280px; margin-bottom: 24px; display: flex; align-items: center; justify-content: center; }
-.gallery-empty-text { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #444441; }
 .detail-grid { display: grid; grid-template-columns: 1fr 320px; gap: 32px; }
 .detail-badge-row { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
 .booking-side { background: #1C1C1A; padding: 28px; }

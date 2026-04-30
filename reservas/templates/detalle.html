@@ -5,26 +5,27 @@
 
     {% with imagenes=habitacion.imagenes.all %}
     {% if imagenes %}
-    <div class="gallery-grid">
-        <div class="gallery-main">
-            <img src="{{ imagenes.0.imagen.url }}">
+    <div class="carousel">
+        <div class="carousel-track" id="carouselTrack">
+            {% for img in imagenes %}
+            <div class="carousel-slide">
+                <img src="{{ img.imagen.url }}" alt="{{ img.descripcion|default:'Habitación' }}">
+            </div>
+            {% endfor %}
         </div>
-        <div class="gallery-side">
-            {% if imagenes.1 %}
-            <div class="gallery-thumb"><img src="{{ imagenes.1.imagen.url }}"></div>
-            {% else %}
-            <div class="gallery-thumb"></div>
-            {% endif %}
-            {% if imagenes.2 %}
-            <div class="gallery-thumb-2"><img src="{{ imagenes.2.imagen.url }}"></div>
-            {% else %}
-            <div class="gallery-thumb-2"></div>
-            {% endif %}
+        {% if imagenes|length > 1 %}
+        <button class="carousel-btn carousel-prev" onclick="carouselPrev()">&#8249;</button>
+        <button class="carousel-btn carousel-next" onclick="carouselNext()">&#8250;</button>
+        <div class="carousel-dots" id="carouselDots">
+            {% for img in imagenes %}
+            <button class="carousel-dot {% if forloop.first %}active{% endif %}" onclick="carouselGoTo({{ forloop.counter0 }})"></button>
+            {% endfor %}
         </div>
+        {% endif %}
     </div>
     {% else %}
-    <div class="gallery-empty">
-        <span class="gallery-empty-text">Sin fotos disponibles</span>
+    <div class="carousel-empty">
+        <span class="carousel-empty-text">Sin fotos disponibles</span>
     </div>
     {% endif %}
     {% endwith %}
@@ -33,7 +34,7 @@
         <div>
             <div class="detail-badge-row">
                 <h1 class="detail-title">Habitación {{ habitacion.numero }}</h1>
-                <span class="{% if habitacion.categoria == 'premium' %}badge-p{% else %}badge-t{% endif %}">{{ habitacion.get_categoria_display }}</span>
+                <span class="{% if habitacion.categoria == 'premium' %}badge-premium{% else %}badge-turista{% endif %}">{{ habitacion.get_categoria_display }}</span>
             </div>
             <div class="detail-info">
                 <p>Categoría: {{ habitacion.get_categoria_display }}</p>
@@ -49,4 +50,32 @@
         </div>
     </div>
 </div>
+
+<script>
+    let current = 0;
+    const track = document.getElementById('carouselTrack');
+    const dots = document.querySelectorAll('.carousel-dot');
+
+    function update() {
+        track.style.transform = 'translateX(-' + (current * 100) + '%)';
+        dots.forEach(function(d, i) {
+            d.classList.toggle('active', i === current);
+        });
+    }
+
+    function carouselPrev() {
+        current = (current - 1 + dots.length) % dots.length;
+        update();
+    }
+
+    function carouselNext() {
+        current = (current + 1) % dots.length;
+        update();
+    }
+
+    function carouselGoTo(index) {
+        current = index;
+        update();
+    }
+</script>
 {% endblock %}

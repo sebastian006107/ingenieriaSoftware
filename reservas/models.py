@@ -3,12 +3,6 @@ from django.contrib.auth.models import AbstractUser
 
 class Usuario(AbstractUser):
     rut = models.CharField(max_length=12, unique=True)
-    telefono = models.CharField(max_length=15, blank=True)
-    rol = models.CharField(max_length=20, choices=[
-        ('cliente', 'Cliente'),
-        ('trabajador', 'Trabajador'),
-        ('admin', 'Administrador'),
-    ], default='cliente')
 
     USERNAME_FIELD = 'rut'
     REQUIRED_FIELDS = ['username', 'email']

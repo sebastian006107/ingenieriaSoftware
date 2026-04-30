@@ -15,7 +15,7 @@
         <a href="{% url 'admin_habitaciones' %}" class="detail-back">← Volver a habitaciones</a>
         <p class="eyebrow">Administración</p>
         <h1 class="admin-title" style="margin-bottom:24px;">Editar Habitación {{ habitacion.numero }}</h1>
-        <div style="display:grid; grid-template-columns:1fr 320px; gap:32px;">
+        <div class="admin-form-grid">
             <form method="post">
                 {% csrf_token %}
                 <label class="input-label">Número de habitación</label>
@@ -33,20 +33,22 @@
                 <input class="input-field" type="number" name="precio_noche" value="{{ habitacion.precio_noche }}" required>
                 <label class="input-label">Descripción</label>
                 <input class="input-field" type="text" name="descripcion" value="{{ habitacion.descripcion }}" placeholder="WiFi, TV, A/C...">
-                <div style="display:flex; align-items:center; gap:10px; margin-bottom:24px;">
+                <div class="admin-check-row">
                     <input type="checkbox" name="disponible" id="disponible" {% if habitacion.disponible %}checked{% endif %}>
-                    <label for="disponible" style="font-size:12px; color:#888780; text-transform:uppercase; letter-spacing:1px;">Disponible</label>
+                    <label for="disponible" class="input-label" style="margin-bottom:0;">Disponible</label>
                 </div>
-                <button type="submit" class="btn-primary" style="width:auto; padding:12px 32px;">Guardar cambios</button>
+                <button type="submit" class="btn-primary btn-primary-sm">Guardar cambios</button>
             </form>
-            <div style="background:#1C1C1A; padding:28px;">
-                <h2 style="font-family:'Cormorant Garamond',serif; font-size:20px; font-weight:300; color:#F7F4EF; margin-bottom:20px;">Estado actual</h2>
-                <div style="font-size:12px; color:#888780; margin-bottom:8px;">Categoría</div>
-                <div style="margin-bottom:16px;"><span class="{% if habitacion.categoria == 'premium' %}badge-p{% else %}badge-t{% endif %}">{{ habitacion.get_categoria_display }}</span></div>
-                <div style="font-size:12px; color:#888780; margin-bottom:8px;">Precio actual</div>
-                <div style="font-family:'Cormorant Garamond',serif; font-size:22px; color:#C9A96E; margin-bottom:16px;">${{ habitacion.precio_noche }}</div>
-                <div style="font-size:12px; color:#888780; margin-bottom:8px;">Reservas activas</div>
-                <div style="font-size:18px; font-weight:300; color:#F7F4EF;">{{ habitacion.reserva_set.count }}</div>
+            <div class="admin-side-panel">
+                <h2 class="booking-side-title">Estado actual</h2>
+                <p class="admin-side-label">Categoría</p>
+                <div class="admin-badge-wrap">
+                    <span class="{% if habitacion.categoria == 'premium' %}badge-premium{% else %}badge-turista{% endif %}">{{ habitacion.get_categoria_display }}</span>
+                </div>
+                <p class="admin-side-label">Precio actual</p>
+                <p class="admin-side-price">${{ habitacion.precio_noche }}</p>
+                <p class="admin-side-label">Reservas activas</p>
+                <p class="admin-side-value">{{ habitacion.reserva_set.count }}</p>
             </div>
         </div>
     </div>

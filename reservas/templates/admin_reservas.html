@@ -18,7 +18,7 @@
                 <h1 class="admin-title">Gestión de reservas</h1>
             </div>
         </div>
-        <div style="display:flex; gap:8px; margin-bottom:20px;">
+        <div class="admin-filter-bar">
             <a href="{% url 'admin_reservas' %}" class="action-btn {% if not estado_actual %}active{% endif %}">Todas</a>
             <a href="?estado=confirmada" class="action-btn {% if estado_actual == 'confirmada' %}active{% endif %}">Confirmadas</a>
             <a href="?estado=pendiente" class="action-btn {% if estado_actual == 'pendiente' %}active{% endif %}">Pendientes</a>
@@ -40,12 +40,12 @@
             <tbody>
                 {% for reserva in reservas %}
                 <tr>
-                    <td style="color:#888780;">{{ reserva.id }}</td>
+                    <td class="td-id">{{ reserva.id }}</td>
                     <td>{{ reserva.usuario.get_full_name|default:reserva.usuario.username }}</td>
                     <td>{{ reserva.habitacion.numero }} — {{ reserva.habitacion.get_categoria_display }}</td>
                     <td>{{ reserva.fecha_entrada }}</td>
                     <td>{{ reserva.fecha_salida }}</td>
-                    <td style="font-family:'Cormorant Garamond',serif; font-size:16px;">${{ reserva.monto_reserva }}</td>
+                    <td class="td-price">${{ reserva.monto_reserva }}</td>
                     <td>
                         <span class="{% if reserva.estado == 'confirmada' %}status-ok{% elif reserva.estado == 'cancelada' %}status-cancel{% else %}status-pend{% endif %}">
                             {{ reserva.estado }}
@@ -56,7 +56,7 @@
                         <a href="{% url 'admin_modificar_reserva' reserva.id %}" class="action-btn">Modificar</a>
                         <a href="{% url 'admin_cancelar_reserva' reserva.id %}" class="action-btn danger" onclick="return confirm('¿Cancelar esta reserva?')">Cancelar</a>
                         {% else %}
-                        <span style="font-size:11px; color:#888780;">—</span>
+                        <span class="admin-empty-msg">—</span>
                         {% endif %}
                     </td>
                 </tr>

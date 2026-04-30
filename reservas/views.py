@@ -3,7 +3,6 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Habitacion, Reserva, Usuario, ImagenHabitacion
-from datetime import date
 
 def inicio(request):
     habitaciones = Habitacion.objects.filter(disponible=True)[:3]
@@ -12,7 +11,6 @@ def inicio(request):
 def registro_view(request):
     if request.method == 'POST':
         rut = request.POST['rut']
-        username = request.POST['username']
         nombre = request.POST['nombre']
         apellido = request.POST['apellido']
         email = request.POST['email']
@@ -23,13 +21,12 @@ def registro_view(request):
             return render(request, 'registro.html')
 
         user = Usuario.objects.create_user(
-            username=username,
+            username=rut,
             rut=rut,
             first_name=nombre,
             last_name=apellido,
             email=email,
             password=password,
-            rol='cliente'
         )
         login(request, user)
         return redirect('inicio')
@@ -137,13 +134,16 @@ def admin_dashboard(request):
     from django.utils import timezone
     total_reservas = Reserva.objects.count()
     reservas_hoy = Reserva.objects.filter(fecha_creacion__date=timezone.now().date()).count()
+    total_habitaciones = Habitacion.objects.count()
     habitaciones_disponibles = Habitacion.objects.filter(disponible=True).count()
-    reservas_recientes = Reserva.objects.order_by('-fecha_creacion')[:10]
-    
+    ocupacion = round((total_habitaciones - habitaciones_disponibles) / max(total_habitaciones, 1) * 100)
+    reservas_recientes = Reserva.objects.select_related('usuario', 'habitacion').order_by('-fecha_creacion')[:10]
+
     context = {
         'total_reservas': total_reservas,
         'reservas_hoy': reservas_hoy,
         'habitaciones_disponibles': habitaciones_disponibles,
+        'ocupacion': ocupacion,
         'reservas_recientes': reservas_recientes,
     }
     return render(request, 'admin_dashboard.html', context)
@@ -153,13 +153,13 @@ def admin_cancelar_reserva(request, id):
     reserva = get_object_or_404(Reserva, id=id)
     reserva.estado = 'cancelada'
     reserva.save()
-    return redirect('admin_dashboard')
+    return redirect('admin_reservas')
 
 
 
 @staff_member_required(login_url='/login/')
 def admin_reservas(request):
-    reservas = Reserva.objects.all().order_by('-fecha_creacion')
+    reservas = Reserva.objects.select_related('usuario', 'habitacion').order_by('-fecha_creacion')
     estado = request.GET.get('estado')
     if estado:
         reservas = reservas.filter(estado=estado)

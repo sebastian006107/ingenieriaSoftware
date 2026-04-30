@@ -54,12 +54,12 @@
             <tbody>
                 {% for reserva in reservas_recientes %}
                 <tr>
-                    <td style="color:#888780;">{{ reserva.id }}</td>
+                    <td class="td-id">{{ reserva.id }}</td>
                     <td>{{ reserva.usuario.get_full_name|default:reserva.usuario.username }}</td>
                     <td>{{ reserva.habitacion.numero }} — {{ reserva.habitacion.get_categoria_display }}</td>
                     <td>{{ reserva.fecha_entrada }}</td>
                     <td>{{ reserva.fecha_salida }}</td>
-                    <td style="font-family:'Cormorant Garamond',serif; font-size:16px;">${{ reserva.monto_reserva }}</td>
+                    <td class="td-price">${{ reserva.monto_reserva }}</td>
                     <td>
                         <span class="{% if reserva.estado == 'confirmada' %}status-ok{% elif reserva.estado == 'cancelada' %}status-cancel{% else %}status-pend{% endif %}">
                             {{ reserva.estado }}

@@ -15,32 +15,32 @@
         <a href="{% url 'admin_habitaciones' %}" class="detail-back">← Volver a habitaciones</a>
         <p class="eyebrow">Administración</p>
         <h1 class="admin-title" style="margin-bottom:24px;">Fotos — Habitación {{ habitacion.numero }}</h1>
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:32px;">
+        <div class="admin-upload-grid">
             <div>
-                <h2 style="font-size:14px; letter-spacing:1px; text-transform:uppercase; color:#888780; margin-bottom:16px;">Subir nueva foto</h2>
+                <h2 class="admin-sub-title">Subir nueva foto</h2>
                 <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <label class="input-label">Imagen</label>
-                    <input type="file" name="imagen" accept="image/*" style="width:100%; padding:10px 0; border-bottom:1px solid #D3D1C7; margin-bottom:18px; font-size:13px;">
+                    <input type="file" name="imagen" accept="image/*" class="admin-file-input">
                     <label class="input-label">Descripción (opcional)</label>
                     <input class="input-field" type="text" name="descripcion" placeholder="Ej: Vista principal, Baño, etc.">
-                    <button type="submit" class="btn-primary" style="width:auto; padding:12px 32px;">Subir foto</button>
+                    <button type="submit" class="btn-primary btn-primary-sm">Subir foto</button>
                 </form>
             </div>
             <div>
-                <h2 style="font-size:14px; letter-spacing:1px; text-transform:uppercase; color:#888780; margin-bottom:16px;">Fotos actuales ({{ imagenes|length }})</h2>
+                <h2 class="admin-sub-title">Fotos actuales ({{ imagenes|length }})</h2>
                 {% if imagenes %}
-                <div style="display:flex; flex-direction:column; gap:8px;">
+                <div class="admin-img-list">
                     {% for img in imagenes %}
-                    <div style="display:grid; grid-template-columns:80px 1fr auto; gap:12px; align-items:center; background:#fff; border:0.5px solid #D3D1C7; padding:10px;">
-                        <img src="{{ img.imagen.url }}" style="width:80px; height:60px; object-fit:cover;">
-                        <span style="font-size:12px; color:#888780;">{{ img.descripcion|default:"Sin descripción" }}</span>
+                    <div class="admin-img-row">
+                        <img src="{{ img.imagen.url }}" class="admin-img-thumb" alt="">
+                        <span class="admin-img-desc">{{ img.descripcion|default:"Sin descripción" }}</span>
                         <a href="{% url 'admin_eliminar_imagen' img.id %}" class="action-btn danger" onclick="return confirm('¿Eliminar esta foto?')">Eliminar</a>
                     </div>
                     {% endfor %}
                 </div>
                 {% else %}
-                <p style="font-size:13px; color:#888780;">No hay fotos cargadas.</p>
+                <p class="admin-empty-msg">No hay fotos cargadas.</p>
                 {% endif %}
             </div>
         </div>

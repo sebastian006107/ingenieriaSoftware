@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap');
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; }
 body { font-family: 'DM Sans', sans-serif; background: #F7F4EF; color: #1C1C1A; }
 
 /* NAVBAR */
@@ -57,13 +58,35 @@ nav { background: #1C1C1A; padding: 0 48px; height: 64px; display: flex; align-i
 .form-link { font-size: 12px; color: #888780; text-align: center; margin-top: 16px; }
 .form-link a { color: #C9A96E; text-decoration: none; }
 
-/* CATALOGO */
-.catalog-filter-links { margin-bottom: 16px; }
-.catalog-filter-links a { color: #888780; font-size: 11px; text-decoration: none; margin-right: 8px; }
-.catalog-filter-links a:hover { color: #1C1C1A; }
-.room-list-item { margin-bottom: 16px; padding-bottom: 16px; border-bottom: 0.5px solid #D3D1C7; }
-.room-list-item p { font-size: 13px; color: #888780; margin-bottom: 4px; }
-.room-list-item a { font-size: 11px; color: #C9A96E; text-decoration: none; }
+/* CATÁLOGO */
+.cat-header { width: 100%; background: #1C1C1A; padding: 40px 48px 32px; }
+.cat-header-inner { display: flex; justify-content: space-between; align-items: flex-end; }
+.cat-title { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 300; color: #F7F4EF; }
+.cat-tabs { display: flex; gap: 2px; }
+.cat-tab { padding: 8px 20px; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; color: #888780; border: 0.5px solid #2C2C2A; }
+.cat-tab:hover { color: #F7F4EF; border-color: #444441; }
+.cat-tab.active { background: #C9A96E; color: #1C1C1A; border-color: #C9A96E; }
+.cat-body { width: 100%; display: grid; grid-template-columns: 200px 1fr; min-height: calc(100vh - 220px); }
+.cat-sidebar { background: #F7F4EF; border-right: 0.5px solid #D3D1C7; padding: 32px 24px; }
+.cat-sidebar-section { margin-bottom: 28px; }
+.cat-sidebar-label { font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase; color: #444441; margin-bottom: 12px; display: block; }
+.cat-sidebar-link { display: block; font-size: 12px; color: #888780; text-decoration: none; padding: 7px 0; }
+.cat-sidebar-link:hover { color: #1C1C1A; }
+.cat-sidebar-link.active { color: #C9A96E; }
+.cat-list { display: flex; flex-direction: column; gap: 1px; background: #D3D1C7; }
+.cat-room-item { background: #F7F4EF; display: grid; grid-template-columns: 180px 1fr 200px; min-height: 110px; align-items: stretch; }
+.cat-room-img { background: #2C2C2A; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.cat-room-img img { width: 100%; height: 100%; object-fit: cover; }
+.cat-room-no-img { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: #444441; }
+.cat-room-info { padding: 20px 24px; }
+.cat-room-num { font-size: 10px; color: #888780; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 6px; }
+.cat-room-name { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 300; margin-bottom: 8px; }
+.cat-room-cap { font-size: 11px; color: #888780; margin-bottom: 8px; }
+.cat-room-desc { font-size: 12px; color: #888780; line-height: 1.6; }
+.cat-room-price-col { padding: 20px 24px; display: flex; flex-direction: column; align-items: flex-end; justify-content: space-between; border-left: 0.5px solid #D3D1C7; }
+.cat-room-price { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 300; }
+.cat-room-price-sub { font-size: 10px; color: #888780; letter-spacing: 1px; text-transform: uppercase; margin-top: -2px; }
+.cat-empty { padding: 40px 32px; font-size: 13px; color: #888780; background: #F7F4EF; }
 
 /* DETALLE */
 .detail-back { font-size: 11px; color: #888780; text-decoration: none; display: inline-block; margin-bottom: 16px; }

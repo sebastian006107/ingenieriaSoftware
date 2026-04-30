@@ -48,6 +48,16 @@ class Reserva(models.Model):
     estado = models.CharField(max_length=10, choices=ESTADO_CHOICES, default='pendiente')
     fecha_creacion = models.DateTimeField(auto_now_add=True)
 
+    def calcular_montos(self):
+        from decimal import Decimal
+        dias = (self.fecha_salida - self.fecha_entrada).days
+        self.total_estadía = self.habitacion.precio_noche * dias
+        self.monto_reserva = self.total_estadía * Decimal('0.30')
+        self.monto_pendiente = self.total_estadía * Decimal('0.70')
+
+    def __str__(self):
+        return f"Reserva {self.id} - {self.usuario} - Hab {self.habitacion.numero}"
+
 class ImagenHabitacion(models.Model):
     habitacion = models.ForeignKey(Habitacion, on_delete=models.CASCADE, related_name='imagenes')
     imagen = models.ImageField(upload_to='habitaciones/')
@@ -59,25 +69,3 @@ class ImagenHabitacion(models.Model):
 
     class Meta:
         ordering = ['orden']
-
-
-    def calcular_montos(self):
-        from decimal import Decimal
-        dias = (self.fecha_salida - self.fecha_entrada).days
-        self.total_estadía = self.habitacion.precio_noche * dias
-        self.monto_reserva = self.total_estadía * Decimal('0.30')
-        self.monto_pendiente = self.total_estadía * Decimal('0.70')
-
-    def __str__(self):
-        return f"Reserva {self.id} - {self.usuario} - Hab {self.habitacion.numero}"
-
-from decimal import Decimal
-
-def calcular_montos(self):
-    dias = (self.fecha_salida - self.fecha_entrada).days
-    self.total_estadía = self.habitacion.precio_noche * dias
-    self.monto_reserva = self.total_estadía * Decimal('0.30')
-    self.monto_pendiente = self.total_estadía * Decimal('0.70')
-
-    def __str__(self):
-        return f"Reserva {self.id} - {self.usuario} - Hab {self.habitacion.numero}"

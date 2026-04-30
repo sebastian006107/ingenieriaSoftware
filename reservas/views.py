@@ -58,8 +58,15 @@ def logout_view(request):
 def catalogo(request):
     habitaciones = Habitacion.objects.filter(disponible=True)
     categoria = request.GET.get('categoria')
+    capacidad = request.GET.get('capacidad')
     if categoria:
         habitaciones = habitaciones.filter(categoria=categoria)
+    if capacidad:
+        cap = int(capacidad)
+        if cap >= 3:
+            habitaciones = habitaciones.filter(capacidad__gte=3)
+        else:
+            habitaciones = habitaciones.filter(capacidad=cap)
     return render(request, 'catalogo.html', {'habitaciones': habitaciones})
 
 def detalle_habitacion(request, id):

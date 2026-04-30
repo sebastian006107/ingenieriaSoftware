@@ -1,19 +1,80 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="container">
-    <h1>Habitaciones disponibles</h1>
-    <div class="catalog-filter-links">
-        <a href="?categoria=turista">Turista</a> |
-        <a href="?categoria=premium">Premium</a> |
-        <a href="?categoria=">Todas</a>
+
+<div class="cat-header">
+    <div class="cat-header-inner">
+        <div>
+            <p class="eyebrow">Nuestras habitaciones</p>
+            <h1 class="cat-title">Catálogo</h1>
+        </div>
+        <div class="cat-tabs">
+            <a href="?{% if request.GET.capacidad %}capacidad={{ request.GET.capacidad }}{% endif %}"
+               class="cat-tab {% if not request.GET.categoria %}active{% endif %}">Todas</a>
+            <a href="?categoria=turista{% if request.GET.capacidad %}&capacidad={{ request.GET.capacidad }}{% endif %}"
+               class="cat-tab {% if request.GET.categoria == 'turista' %}active{% endif %}">Turista</a>
+            <a href="?categoria=premium{% if request.GET.capacidad %}&capacidad={{ request.GET.capacidad }}{% endif %}"
+               class="cat-tab {% if request.GET.categoria == 'premium' %}active{% endif %}">Premium</a>
+        </div>
     </div>
-    {% for hab in habitaciones %}
-    <div class="room-list-item">
-        <p>Hab. {{ hab.numero }} - Piso {{ hab.piso }} - {{ hab.categoria }}</p>
-        <p>Capacidad: {{ hab.capacidad }} personas</p>
-        <p>Precio: ${{ hab.precio_noche }} / noche</p>
-        <a href="{% url 'detalle_habitacion' hab.id %}">Ver detalle</a>
-    </div>
-    {% endfor %}
 </div>
+
+<div class="cat-body">
+    <aside class="cat-sidebar">
+        <div class="cat-sidebar-section">
+            <span class="cat-sidebar-label">Categoría</span>
+            <a href="?{% if request.GET.capacidad %}capacidad={{ request.GET.capacidad }}{% endif %}"
+               class="cat-sidebar-link {% if not request.GET.categoria %}active{% endif %}">Todas</a>
+            <a href="?categoria=turista{% if request.GET.capacidad %}&capacidad={{ request.GET.capacidad }}{% endif %}"
+               class="cat-sidebar-link {% if request.GET.categoria == 'turista' %}active{% endif %}">Turista</a>
+            <a href="?categoria=premium{% if request.GET.capacidad %}&capacidad={{ request.GET.capacidad }}{% endif %}"
+               class="cat-sidebar-link {% if request.GET.categoria == 'premium' %}active{% endif %}">Premium</a>
+        </div>
+        <div class="cat-sidebar-section">
+            <span class="cat-sidebar-label">Capacidad</span>
+            <a href="?{% if request.GET.categoria %}categoria={{ request.GET.categoria }}{% endif %}"
+               class="cat-sidebar-link {% if not request.GET.capacidad %}active{% endif %}">Cualquiera</a>
+            <a href="?capacidad=1{% if request.GET.categoria %}&categoria={{ request.GET.categoria }}{% endif %}"
+               class="cat-sidebar-link {% if request.GET.capacidad == '1' %}active{% endif %}">1 persona</a>
+            <a href="?capacidad=2{% if request.GET.categoria %}&categoria={{ request.GET.categoria }}{% endif %}"
+               class="cat-sidebar-link {% if request.GET.capacidad == '2' %}active{% endif %}">2 personas</a>
+            <a href="?capacidad=3{% if request.GET.categoria %}&categoria={{ request.GET.categoria }}{% endif %}"
+               class="cat-sidebar-link {% if request.GET.capacidad == '3' %}active{% endif %}">3+ personas</a>
+        </div>
+    </aside>
+
+    <main class="cat-list">
+        {% for hab in habitaciones %}
+        <div class="cat-room-item">
+            <div class="cat-room-img">
+                {% with primera=hab.imagenes.first %}
+                {% if primera %}
+                    <img src="{{ primera.imagen.url }}" alt="Habitación {{ hab.numero }}">
+                {% else %}
+                    <span class="cat-room-no-img">Sin imagen</span>
+                {% endif %}
+                {% endwith %}
+            </div>
+            <div class="cat-room-info">
+                <p class="cat-room-num">Habitación {{ hab.numero }} &middot; Piso {{ hab.piso }}</p>
+                <h2 class="cat-room-name">{{ hab.get_categoria_display }}</h2>
+                <p class="cat-room-cap">{{ hab.capacidad }} persona{{ hab.capacidad|pluralize:"s" }}</p>
+                {% if hab.descripcion %}
+                <p class="cat-room-desc">{{ hab.descripcion|truncatechars:100 }}</p>
+                {% endif %}
+            </div>
+            <div class="cat-room-price-col">
+                <span class="badge-{{ hab.categoria }}">{{ hab.get_categoria_display }}</span>
+                <div>
+                    <p class="cat-room-price">${{ hab.precio_noche }}</p>
+                    <p class="cat-room-price-sub">por noche</p>
+                </div>
+                <a href="{% url 'detalle_habitacion' hab.id %}" class="btn-outline">Ver detalle</a>
+            </div>
+        </div>
+        {% empty %}
+        <p class="cat-empty">No hay habitaciones disponibles con esos filtros.</p>
+        {% endfor %}
+    </main>
+</div>
+
 {% endblock %}

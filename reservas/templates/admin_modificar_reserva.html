@@ -2,7 +2,6 @@
 {% block content %}
 <div class="admin-wrap">
     <div class="sidebar">
-        <a class="sb-logo" href="{% url 'admin_dashboard' %}">Pacific Reef</a>
         <div class="sb-section">Principal</div>
         <a class="sb-item" href="{% url 'admin_dashboard' %}"><div class="sb-dot"></div>Dashboard</a>
         <a class="sb-item active" href="{% url 'admin_reservas' %}"><div class="sb-dot"></div>Reservas</a>
@@ -14,7 +13,7 @@
     <div class="admin-content">
         <a href="{% url 'admin_reservas' %}" class="detail-back">← Volver a reservas</a>
         <p class="eyebrow">Administración</p>
-        <h1 class="admin-title" style="margin-bottom:24px;">Modificar Reserva #{{ reserva.id }}</h1>
+        <h1 class="admin-title">Modificar Reserva #{{ reserva.id }}</h1>
         <div class="admin-form-grid">
             <form method="post">
                 {% csrf_token %}
@@ -31,7 +30,7 @@
                 <p class="admin-side-label">Habitación</p>
                 <p class="admin-side-value-sm">{{ reserva.habitacion.numero }} — {{ reserva.habitacion.get_categoria_display }}</p>
                 <p class="admin-side-label">Monto total</p>
-                <p class="admin-side-price">${{ reserva.total_estadía }}</p>
+                <p class="admin-side-price">${{ reserva.total_estadía|floatformat:0 }}</p>
             </div>
         </div>
     </div>

@@ -65,7 +65,7 @@
             <div class="cat-room-price-col">
                 <span class="badge-{{ hab.categoria }}">{{ hab.get_categoria_display }}</span>
                 <div>
-                    <p class="cat-room-price">${{ hab.precio_noche }}</p>
+                    <p class="cat-room-price">${{ hab.precio_noche|floatformat:0 }}</p>
                     <p class="cat-room-price-sub">por noche</p>
                 </div>
                 <a href="{% url 'detalle_habitacion' hab.id %}" class="btn-outline">Ver detalle</a>

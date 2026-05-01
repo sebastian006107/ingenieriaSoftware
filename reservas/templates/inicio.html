@@ -2,27 +2,32 @@
 {% block content %}
 <div class="hero">
     <h1 class="hero-title">
-        Donde el mar encuentra <em>el descanso</em>
+        Lorem ipsum dolor sit amet, <em>consectetur adipiscing</em>
     </h1>
     <p class="hero-sub">38 habitaciones entre categorías Turista y Premium.</p>
     <a href="{% url 'catalogo' %}" class="btn-gold btn-gold-lg">Ver habitaciones</a>
 </div>
 <div class="rooms-section">
-    <h2>Habitaciones disponibles</h2>
+    <div class="rooms-section-header">
+        <h2>Habitaciones disponibles</h2>
+        <a href="{% url 'catalogo' %}" class="btn-outline">Ver todas</a>
+    </div>
     <div class="rooms-grid">
         {% for hab in habitaciones %}
         <div class="room-card">
             <div class="room-card-img">
-                <span class="{% if hab.categoria == 'premium' %}badge-premium{% else %}badge-turista{% endif %}">{{ hab.categoria }}</span>
+                <span class="{% if hab.categoria == 'premium' %}badge-premium{% else %}badge-turista{% endif %}">{{ hab.get_categoria_display }}</span>
             </div>
             <p class="room-card-num">Hab. {{ hab.numero }} · Piso {{ hab.piso }}</p>
             <p class="room-card-name">{{ hab.get_categoria_display }}</p>
             <p class="room-card-cap">Capacidad: {{ hab.capacidad }} personas</p>
             <div class="room-card-footer">
-                <span class="room-card-price">${{ hab.precio_noche }}</span>
+                <span class="room-card-price">${{ hab.precio_noche|floatformat:0 }}</span>
                 <a href="{% url 'detalle_habitacion' hab.id %}" class="btn-outline">Ver detalle</a>
             </div>
         </div>
+        {% empty %}
+        <p style="color:#888780; font-size:13px; padding:16px 0;">No hay habitaciones disponibles en este momento.</p>
         {% endfor %}
     </div>
 </div>

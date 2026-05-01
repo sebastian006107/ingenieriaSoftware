@@ -7,10 +7,11 @@
         <p>Habitación: {{ reserva.habitacion.numero }}</p>
         <p>Check-in: {{ reserva.fecha_entrada }}</p>
         <p>Check-out: {{ reserva.fecha_salida }}</p>
-        <p>Total estadía: ${{ reserva.total_estadía }}</p>
-        <p>Monto pagado (30%): ${{ reserva.monto_reserva }}</p>
-        <p>Saldo al check-in (70%): ${{ reserva.monto_pendiente }}</p>
+        <p>Total estadía: ${{ reserva.total_estadía|floatformat:0 }}</p>
+        <p>Monto pagado (30%): ${{ reserva.monto_reserva|floatformat:0 }}</p>
+        <p>Saldo al check-in (70%): ${{ reserva.monto_pendiente|floatformat:0 }}</p>
     </div>
+    <a class="confirm-link" href="{% url 'mis_reservas' %}">Ver mis reservas</a>
     <a class="confirm-link" href="{% url 'inicio' %}">Volver al inicio</a>
 </div>
 {% endblock %}

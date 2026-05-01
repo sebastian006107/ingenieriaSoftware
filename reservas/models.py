@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
@@ -43,7 +45,6 @@ class Reserva(models.Model):
     fecha_creacion = models.DateTimeField(auto_now_add=True)
 
     def calcular_montos(self):
-        from decimal import Decimal
         dias = (self.fecha_salida - self.fecha_entrada).days
         self.total_estadía = self.habitacion.precio_noche * dias
         self.monto_reserva = self.total_estadía * Decimal('0.30')

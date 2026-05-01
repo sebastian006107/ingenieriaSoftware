@@ -2,13 +2,14 @@
 {% block content %}
 <div class="container">
     <h1 class="reservar-title">Reservar Habitación {{ habitacion.numero }}</h1>
-    <p class="reservar-price">Precio: ${{ habitacion.precio_noche }} / noche</p>
+    <p class="reservar-price">Precio: ${{ habitacion.precio_noche|floatformat:0 }} / noche &nbsp;·&nbsp; Estadía entre 3 y 12 noches</p>
     <form method="post">
         {% csrf_token %}
+        {% now "Y-m-d" as today_date %}
         <label class="reservar-label">Fecha entrada:</label>
-        <input class="reservar-input" type="date" name="fecha_entrada" required>
+        <input class="reservar-input" type="date" name="fecha_entrada" min="{{ today_date }}" required>
         <label class="reservar-label">Fecha salida:</label>
-        <input class="reservar-input" type="date" name="fecha_salida" required>
+        <input class="reservar-input" type="date" name="fecha_salida" min="{{ today_date }}" required>
         <button type="submit" class="reservar-btn">Confirmar reserva</button>
     </form>
 </div>

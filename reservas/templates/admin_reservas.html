@@ -2,7 +2,6 @@
 {% block content %}
 <div class="admin-wrap">
     <div class="sidebar">
-        <a class="sb-logo" href="{% url 'admin_dashboard' %}">Pacific Reef</a>
         <div class="sb-section">Principal</div>
         <a class="sb-item" href="{% url 'admin_dashboard' %}"><div class="sb-dot"></div>Dashboard</a>
         <a class="sb-item active" href="{% url 'admin_reservas' %}"><div class="sb-dot"></div>Reservas</a>
@@ -45,9 +44,9 @@
                     <td>{{ reserva.habitacion.numero }} — {{ reserva.habitacion.get_categoria_display }}</td>
                     <td>{{ reserva.fecha_entrada }}</td>
                     <td>{{ reserva.fecha_salida }}</td>
-                    <td class="td-price">${{ reserva.monto_reserva }}</td>
+                    <td class="td-price">${{ reserva.monto_reserva|floatformat:0 }}</td>
                     <td>
-                        <span class="{% if reserva.estado == 'confirmada' %}status-ok{% elif reserva.estado == 'cancelada' %}status-cancel{% else %}status-pend{% endif %}">
+                        <span class="{% if reserva.estado == 'confirmada' %}badge-confirmada{% elif reserva.estado == 'cancelada' %}badge-cancelada{% else %}badge-pendiente{% endif %}">
                             {{ reserva.estado }}
                         </span>
                     </td>

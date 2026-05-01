@@ -1,12 +1,19 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from datetime import datetime
+
+from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.contrib import messages
+from django.contrib.admin.views.decorators import staff_member_required
+from django.shortcuts import render, redirect, get_object_or_404
+from django.utils import timezone
+
 from .models import Habitacion, Reserva, Usuario, ImagenHabitacion
+
 
 def inicio(request):
     habitaciones = Habitacion.objects.filter(disponible=True)[:3]
     return render(request, 'inicio.html', {'habitaciones': habitaciones})
+
 
 def registro_view(request):
     if request.method == 'POST':
@@ -18,7 +25,7 @@ def registro_view(request):
 
         if Usuario.objects.filter(rut=rut).exists():
             messages.error(request, 'El RUT ya está registrado')
-            return render(request, 'registro.html')
+            return render(request, 'registro.html', {'next': request.POST.get('next', '')})
 
         user = Usuario.objects.create_user(
             username=rut,
@@ -29,11 +36,10 @@ def registro_view(request):
             password=password,
         )
         login(request, user)
-        return redirect('inicio')
+        next_url = request.POST.get('next') or 'inicio'
+        return redirect(next_url)
 
-    return render(request, 'registro.html')
-
-
+    return render(request, 'registro.html', {'next': request.GET.get('next', '')})
 
 
 def login_view(request):
@@ -43,55 +49,66 @@ def login_view(request):
         user = authenticate(request, rut=rut, password=password)
         if user:
             login(request, user)
-            return redirect('inicio')
+            next_url = request.POST.get('next') or 'inicio'
+            return redirect(next_url)
         else:
             messages.error(request, 'RUT o clave incorrectos')
-    return render(request, 'login.html')
+    return render(request, 'login.html', {'next': request.GET.get('next', '')})
+
 
 def logout_view(request):
     logout(request)
     return redirect('login')
 
+
 def catalogo(request):
-    habitaciones = Habitacion.objects.filter(disponible=True)
+    habitaciones = Habitacion.objects.filter(disponible=True).prefetch_related('imagenes')
     categoria = request.GET.get('categoria')
     capacidad = request.GET.get('capacidad')
     if categoria:
         habitaciones = habitaciones.filter(categoria=categoria)
     if capacidad:
-        cap = int(capacidad)
-        if cap >= 3:
-            habitaciones = habitaciones.filter(capacidad__gte=3)
-        else:
-            habitaciones = habitaciones.filter(capacidad=cap)
+        try:
+            cap = int(capacidad)
+        except ValueError:
+            cap = None
+        if cap is not None:
+            if cap >= 3:
+                habitaciones = habitaciones.filter(capacidad__gte=3)
+            else:
+                habitaciones = habitaciones.filter(capacidad=cap)
     return render(request, 'catalogo.html', {'habitaciones': habitaciones})
 
+
 def detalle_habitacion(request, id):
-    habitacion = get_object_or_404(Habitacion, id=id)
+    habitacion = get_object_or_404(
+        Habitacion.objects.prefetch_related('imagenes'), id=id, disponible=True
+    )
     return render(request, 'detalle.html', {'habitacion': habitacion})
+
 
 @login_required
 def reservar(request, id):
-    habitacion = get_object_or_404(Habitacion, id=id)
+    habitacion = get_object_or_404(Habitacion, id=id, disponible=True)
     if request.method == 'POST':
         fecha_entrada = request.POST['fecha_entrada']
         fecha_salida = request.POST['fecha_salida']
-        
-        from datetime import date, datetime
         entrada = datetime.strptime(fecha_entrada, '%Y-%m-%d').date()
         salida = datetime.strptime(fecha_salida, '%Y-%m-%d').date()
-        dias = (salida - entrada).days
 
-        # Validar fechas
+        if entrada < datetime.today().date():
+            messages.error(request, 'La fecha de entrada no puede ser en el pasado')
+            return render(request, 'reservar.html', {'habitacion': habitacion})
+
         if salida <= entrada:
             messages.error(request, 'La fecha de salida debe ser posterior a la entrada')
             return render(request, 'reservar.html', {'habitacion': habitacion})
 
+        dias = (salida - entrada).days
         if dias < 3 or dias > 12:
             messages.error(request, 'La estadía debe ser entre 3 y 12 días')
             return render(request, 'reservar.html', {'habitacion': habitacion})
 
-        # Verificar disponibilidad
         reservas_existentes = Reserva.objects.filter(
             habitacion=habitacion,
             fecha_entrada__lt=salida,
@@ -102,7 +119,6 @@ def reservar(request, id):
             messages.error(request, 'La habitación no está disponible para esas fechas')
             return render(request, 'reservar.html', {'habitacion': habitacion})
 
-        # Crear reserva
         reserva = Reserva(
             usuario=request.user,
             habitacion=habitacion,
@@ -115,38 +131,41 @@ def reservar(request, id):
 
     return render(request, 'reservar.html', {'habitacion': habitacion})
 
+
 @login_required
 def confirmacion(request, id):
     reserva = get_object_or_404(Reserva, id=id)
     return render(request, 'confirmacion.html', {'reserva': reserva})
 
+
 @login_required
 def mis_reservas(request):
-    reservas = Reserva.objects.filter(usuario=request.user).order_by('-fecha_creacion')
+    reservas = Reserva.objects.filter(
+        usuario=request.user
+    ).select_related('habitacion').order_by('-fecha_creacion')
     return render(request, 'mis_reservas.html', {'reservas': reservas})
 
 
-
-from django.contrib.admin.views.decorators import staff_member_required
-
 @staff_member_required(login_url='/login/')
 def admin_dashboard(request):
-    from django.utils import timezone
+    today = timezone.now().date()
     total_reservas = Reserva.objects.count()
-    reservas_hoy = Reserva.objects.filter(fecha_creacion__date=timezone.now().date()).count()
-    total_habitaciones = Habitacion.objects.count()
-    habitaciones_disponibles = Habitacion.objects.filter(disponible=True).count()
-    ocupacion = round((total_habitaciones - habitaciones_disponibles) / max(total_habitaciones, 1) * 100)
+    reservas_hoy = Reserva.objects.filter(fecha_creacion__date=today).count()
+    habitaciones_disponibles = Habitacion.objects.filter(disponible=True).exclude(
+        reserva__fecha_entrada__lte=today,
+        reserva__fecha_salida__gt=today,
+        reserva__estado__in=['pendiente', 'confirmada']
+    ).distinct().count()
     reservas_recientes = Reserva.objects.select_related('usuario', 'habitacion').order_by('-fecha_creacion')[:10]
 
     context = {
         'total_reservas': total_reservas,
         'reservas_hoy': reservas_hoy,
         'habitaciones_disponibles': habitaciones_disponibles,
-        'ocupacion': ocupacion,
         'reservas_recientes': reservas_recientes,
     }
     return render(request, 'admin_dashboard.html', context)
+
 
 @staff_member_required(login_url='/login/')
 def admin_cancelar_reserva(request, id):
@@ -154,7 +173,6 @@ def admin_cancelar_reserva(request, id):
     reserva.estado = 'cancelada'
     reserva.save()
     return redirect('admin_reservas')
-
 
 
 @staff_member_required(login_url='/login/')
@@ -165,13 +183,13 @@ def admin_reservas(request):
         reservas = reservas.filter(estado=estado)
     return render(request, 'admin_reservas.html', {'reservas': reservas, 'estado_actual': estado})
 
+
 @staff_member_required(login_url='/login/')
 def admin_modificar_reserva(request, id):
     reserva = get_object_or_404(Reserva, id=id)
     if request.method == 'POST':
         fecha_entrada = request.POST['fecha_entrada']
         fecha_salida = request.POST['fecha_salida']
-        from datetime import datetime
         entrada = datetime.strptime(fecha_entrada, '%Y-%m-%d').date()
         salida = datetime.strptime(fecha_salida, '%Y-%m-%d').date()
         dias = (salida - entrada).days
@@ -192,8 +210,9 @@ def admin_modificar_reserva(request, id):
 
 @staff_member_required(login_url='/login/')
 def admin_habitaciones(request):
-    habitaciones = Habitacion.objects.all().order_by('numero')
+    habitaciones = Habitacion.objects.prefetch_related('imagenes').order_by('numero')
     return render(request, 'admin_habitaciones.html', {'habitaciones': habitaciones})
+
 
 @staff_member_required(login_url='/login/')
 def admin_editar_habitacion(request, id):
@@ -225,9 +244,12 @@ def admin_subir_imagen(request, id):
                 descripcion=descripcion
             )
             messages.success(request, 'Imagen subida correctamente')
+        else:
+            messages.error(request, 'Debes seleccionar un archivo de imagen')
         return redirect('admin_subir_imagen', id=id)
     imagenes = habitacion.imagenes.all()
     return render(request, 'admin_subir_imagen.html', {'habitacion': habitacion, 'imagenes': imagenes})
+
 
 @staff_member_required(login_url='/login/')
 def admin_eliminar_imagen(request, id):

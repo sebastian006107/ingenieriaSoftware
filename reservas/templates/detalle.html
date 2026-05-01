@@ -37,10 +37,9 @@
                 <span class="{% if habitacion.categoria == 'premium' %}badge-premium{% else %}badge-turista{% endif %}">{{ habitacion.get_categoria_display }}</span>
             </div>
             <div class="detail-info">
-                <p>Categoría: {{ habitacion.get_categoria_display }}</p>
                 <p>Piso: {{ habitacion.piso }}</p>
                 <p>Capacidad: {{ habitacion.capacidad }} personas</p>
-                <p>Precio: ${{ habitacion.precio_noche }} / noche</p>
+                <p>Precio: ${{ habitacion.precio_noche|floatformat:0 }} / noche</p>
                 <p>{{ habitacion.descripcion }}</p>
             </div>
         </div>
@@ -57,6 +56,7 @@
     const dots = document.querySelectorAll('.carousel-dot');
 
     function update() {
+        if (!track) return;
         track.style.transform = 'translateX(-' + (current * 100) + '%)';
         dots.forEach(function(d, i) {
             d.classList.toggle('active', i === current);

@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="form-wrap">
-    <div class="form-card-wide">
+    <div class="form-card form-card-wide">
         <p class="eyebrow">Nuevo usuario</p>
         <h2 class="form-title-lg">Crear cuenta</h2>
         <form method="post">
             {% csrf_token %}
+            <input type="hidden" name="next" value="{{ next }}">
             <label class="input-label">Nombre</label>
             <input class="input-field" name="nombre" placeholder="Juan">
             <label class="input-label">Apellido</label>

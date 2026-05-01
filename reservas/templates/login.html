@@ -7,6 +7,7 @@
         <p class="form-sub">Ingresa con tu RUT y clave para continuar</p>
         <form method="post">
             {% csrf_token %}
+            <input type="hidden" name="next" value="{{ next }}">
             <label class="input-label">RUT</label>
             <input class="input-field" name="rut" placeholder="12.345.678-9">
             <label class="input-label">Clave</label>

@@ -12,8 +12,9 @@
                 <p class="reserva-fechas">Check-in: {{ reserva.fecha_entrada }} · Check-out: {{ reserva.fecha_salida }}</p>
             </div>
             <div>
-                <p class="reserva-monto">${{ reserva.monto_reserva }}</p>
-                <p class="reserva-monto-label">pagado (30%)</p>
+                <p class="reserva-monto">${{ reserva.total_estadía|floatformat:0 }}</p>
+                <p class="reserva-monto-label">total estadía</p>
+                <p class="reserva-monto-sub">${{ reserva.monto_reserva|floatformat:0 }} pagado (30%)</p>
                 <span class="{% if reserva.estado == 'confirmada' %}badge-confirmada{% elif reserva.estado == 'cancelada' %}badge-cancelada{% else %}badge-pendiente{% endif %}">
                     {{ reserva.estado }}
                 </span>
@@ -22,7 +23,7 @@
         {% endfor %}
     </div>
     {% else %}
-    <p class="reservas-empty">No tienes reservas activas.</p>
+    <p class="reservas-empty">No tienes reservas registradas.</p>
     {% endif %}
 </div>
 {% endblock %}

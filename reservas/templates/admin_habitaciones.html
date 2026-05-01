@@ -2,7 +2,6 @@
 {% block content %}
 <div class="admin-wrap">
     <div class="sidebar">
-        <a class="sb-logo" href="{% url 'admin_dashboard' %}">Pacific Reef</a>
         <div class="sb-section">Principal</div>
         <a class="sb-item" href="{% url 'admin_dashboard' %}"><div class="sb-dot"></div>Dashboard</a>
         <a class="sb-item" href="{% url 'admin_reservas' %}"><div class="sb-dot"></div>Reservas</a>
@@ -38,7 +37,7 @@
                     <td>{{ hab.piso }}</td>
                     <td><span class="{% if hab.categoria == 'premium' %}badge-premium{% else %}badge-turista{% endif %}">{{ hab.get_categoria_display }}</span></td>
                     <td>{{ hab.capacidad }} personas</td>
-                    <td style="font-family:'Cormorant Garamond',serif; font-size:16px;">${{ hab.precio_noche }}</td>
+                    <td class="td-price">${{ hab.precio_noche|floatformat:0 }}</td>
                     <td>
                         {% if hab.disponible %}
                             <span class="status-ok">Disponible</span>
@@ -46,12 +45,14 @@
                             <span class="status-cancel">No disponible</span>
                         {% endif %}
                     </td>
-                    <td style="font-size:12px; color:#888780;">{{ hab.imagenes.count }} foto{% if hab.imagenes.count != 1 %}s{% endif %}</td>
+                    <td class="admin-img-desc">{% with n=hab.imagenes.count %}{{ n }} foto{% if n != 1 %}s{% endif %}{% endwith %}</td>
                     <td>
                         <a href="{% url 'admin_editar_habitacion' hab.id %}" class="action-btn">Editar</a>
                         <a href="{% url 'admin_subir_imagen' hab.id %}" class="action-btn">Fotos</a>
                     </td>
                 </tr>
+                {% empty %}
+                <tr><td colspan="8" style="text-align:center; color:#888780; padding:24px;">No hay habitaciones registradas.</td></tr>
                 {% endfor %}
             </tbody>
         </table>

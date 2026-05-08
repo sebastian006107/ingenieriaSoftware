@@ -28,6 +28,22 @@ DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = ['ingenieriasoftware-production.up.railway.app', 'localhost', '127.0.0.1']
 
+# CSRF Configuration
+CSRF_TRUSTED_ORIGINS = [
+    'https://ingenieriasoftware-production.up.railway.app',
+    'http://localhost:8000',
+    'http://127.0.0.1:8000',
+]
+
+# Security settings for production
+SECURE_SSL_REDIRECT = not DEBUG
+SESSION_COOKIE_SECURE = not DEBUG
+CSRF_COOKIE_SECURE = not DEBUG
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_SECURITY_POLICY = {
+    "default-src": ("'self'",),
+}
+
 
 # Application definition
 

@@ -1,0 +1,197 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap');
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; }
+body { font-family: 'DM Sans', sans-serif; background: #F7F4EF; color: #1C1C1A; }
+
+/* NAVBAR */
+nav { background: #1C1C1A; padding: 0 48px; height: 64px; display: flex; align-items: center; justify-content: space-between; }
+.logo { font-family: 'Cormorant Garamond', serif; font-size: 19px; font-weight: 300; color: #F7F4EF; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; }
+.nav-links { display: flex; align-items: center; gap: 24px; }
+.nav-links a { color: #888780; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; text-decoration: none; }
+.nav-links a:hover { color: #F7F4EF; }
+.nav-user { color: #C9A96E; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; }
+.btn-gold { background: #C9A96E; color: #1C1C1A !important; padding: 7px 18px; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; text-decoration: none; }
+.btn-gold:hover { background: #BA8A4E; }
+
+/* GENERAL */
+.container { padding: 48px; }
+.messages { padding: 12px 48px; font-size: 13px; }
+
+/* INICIO - HERO */
+.hero { background: #1C1C1A; padding: 72px 48px; }
+.hero-title { font-size: 48px; color: #F7F4EF; font-weight: 300; margin-bottom: 16px; }
+.hero-title em { color: #C9A96E; }
+.hero-sub { color: #888780; margin-bottom: 32px; }
+.btn-gold-lg { padding: 14px 32px; font-size: 12px; }
+
+/* INICIO - ROOMS GRID */
+.rooms-section { padding: 48px; }
+.rooms-section-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 24px; }
+.rooms-section-header h2 { font-size: 32px; font-weight: 300; }
+.rooms-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: #D3D1C7; }
+.room-card { background: #F7F4EF; padding: 20px; }
+.room-card-img { background: #2C2C2A; height: 140px; margin-bottom: 16px; display: flex; align-items: flex-end; padding: 10px; }
+.badge-premium { background: #C9A96E; padding: 3px 10px; font-size: 9px; letter-spacing: 1px; text-transform: uppercase; }
+.badge-turista { background: #F7F4EF; border: 0.5px solid #D3D1C7; padding: 3px 10px; font-size: 9px; letter-spacing: 1px; text-transform: uppercase; }
+.room-card-num { font-size: 10px; color: #888780; text-transform: uppercase; letter-spacing: 1px; }
+.room-card-name { font-size: 20px; font-weight: 300; margin: 6px 0; }
+.room-card-cap { font-size: 11px; color: #888780; }
+.room-card-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 14px; padding-top: 14px; border-top: 0.5px solid #D3D1C7; }
+.room-card-price { font-size: 22px; font-weight: 300; }
+.btn-outline { border: 0.5px solid #1C1C1A; padding: 7px 14px; font-size: 9px; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; color: #1C1C1A; }
+.btn-outline:hover { background: #C9A96E; border-color: #C9A96E; }
+
+
+/* FORMULARIOS */
+.form-wrap { background: #1C1C1A; min-height: 520px; display: flex; align-items: center; justify-content: center; padding: 40px; }
+.form-card { background: #F7F4EF; width: 100%; max-width: 400px; padding: 40px; }
+.form-card-wide { max-width: 420px; }
+.eyebrow { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #C9A96E; margin-bottom: 14px; }
+.form-title { font-size: 32px; font-weight: 300; margin-bottom: 4px; }
+.form-title-lg { font-size: 32px; font-weight: 300; margin-bottom: 28px; }
+.form-sub { font-size: 12px; color: #888780; margin-bottom: 28px; }
+.input-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #888780; margin-bottom: 6px; display: block; }
+.input-field { width: 100%; padding: 10px 0; border: none; border-bottom: 1px solid #D3D1C7; background: transparent; font-size: 14px; margin-bottom: 18px; outline: none; }
+.input-field-last { width: 100%; padding: 10px 0; border: none; border-bottom: 1px solid #D3D1C7; background: transparent; font-size: 14px; margin-bottom: 24px; outline: none; }
+.btn-primary { width: 100%; background: #1C1C1A; color: #F7F4EF; border: none; padding: 13px; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; }
+.form-link { font-size: 12px; color: #888780; text-align: center; margin-top: 16px; }
+.form-link a { color: #C9A96E; text-decoration: none; }
+
+/* CATÁLOGO */
+.cat-header { width: 100%; background: #1C1C1A; padding: 40px 48px 32px; }
+.cat-header-inner { display: flex; justify-content: space-between; align-items: flex-end; }
+.cat-title { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 300; color: #F7F4EF; }
+.cat-tabs { display: flex; gap: 2px; }
+.cat-tab { padding: 8px 20px; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; color: #888780; border: 0.5px solid #2C2C2A; }
+.cat-tab:hover { color: #F7F4EF; border-color: #444441; }
+.cat-tab.active { background: #C9A96E; color: #1C1C1A; border-color: #C9A96E; }
+.cat-body { width: 100%; display: grid; grid-template-columns: 200px 1fr; min-height: calc(100vh - 220px); }
+.cat-sidebar { background: #F7F4EF; border-right: 0.5px solid #D3D1C7; padding: 32px 24px; }
+.cat-sidebar-section { margin-bottom: 28px; }
+.cat-sidebar-label { font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase; color: #444441; margin-bottom: 12px; display: block; }
+.cat-sidebar-link { display: block; font-size: 12px; color: #888780; text-decoration: none; padding: 7px 0; }
+.cat-sidebar-link:hover { color: #1C1C1A; }
+.cat-sidebar-link.active { color: #C9A96E; }
+.cat-list { display: flex; flex-direction: column; gap: 1px; background: #D3D1C7; }
+.cat-room-item { background: #F7F4EF; display: grid; grid-template-columns: 180px 1fr 200px; min-height: 110px; align-items: stretch; }
+.cat-room-img { background: #2C2C2A; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.cat-room-img img { width: 100%; height: 100%; object-fit: cover; }
+.cat-room-no-img { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: #444441; }
+.cat-room-info { padding: 20px 24px; }
+.cat-room-num { font-size: 10px; color: #888780; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 6px; }
+.cat-room-name { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 300; margin-bottom: 8px; }
+.cat-room-cap { font-size: 11px; color: #888780; margin-bottom: 8px; }
+.cat-room-desc { font-size: 12px; color: #888780; line-height: 1.6; }
+.cat-room-price-col { padding: 20px 24px; display: flex; flex-direction: column; align-items: flex-end; justify-content: space-between; border-left: 0.5px solid #D3D1C7; }
+.cat-room-price { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 300; }
+.cat-room-price-sub { font-size: 10px; color: #888780; letter-spacing: 1px; text-transform: uppercase; margin-top: -2px; }
+.cat-empty { padding: 40px 32px; font-size: 13px; color: #888780; background: #F7F4EF; }
+
+/* DETALLE */
+.detail-back { font-size: 11px; color: #888780; text-decoration: none; display: inline-block; margin-bottom: 16px; }
+.detail-title { font-size: 28px; font-weight: 300; margin-bottom: 8px; }
+.detail-info p { font-size: 13px; color: #888780; margin-bottom: 6px; }
+
+/* RESERVAR */
+.reservar-title { font-size: 28px; font-weight: 300; margin-bottom: 8px; }
+.reservar-price { font-size: 13px; color: #888780; margin-bottom: 24px; }
+.reservar-label { display: block; font-size: 12px; color: #888780; margin-bottom: 4px; }
+.reservar-input { width: 100%; padding: 8px 0; border: none; border-bottom: 1px solid #D3D1C7; background: transparent; font-size: 14px; margin-bottom: 16px; outline: none; }
+.reservar-btn { background: #1C1C1A; color: #F7F4EF; border: none; padding: 12px 24px; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; margin-top: 8px; }
+
+/* CONFIRMACION */
+.confirm-title { font-size: 28px; font-weight: 300; margin-bottom: 16px; }
+.confirm-info p { font-size: 13px; color: #888780; margin-bottom: 6px; }
+.confirm-link { font-size: 12px; color: #C9A96E; text-decoration: none; display: inline-block; margin-top: 16px; margin-right: 16px; }
+
+/* MIS RESERVAS */
+.reservas-title { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 300; margin-bottom: 24px; }
+.reservas-list { display: flex; flex-direction: column; gap: 1px; background: #D3D1C7; }
+.reserva-item { background: #F7F4EF; display: grid; grid-template-columns: 1fr auto; align-items: center; padding: 20px 24px; }
+.reserva-id { font-size: 10px; color: #888780; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+.reserva-nombre { font-size: 18px; font-weight: 300; margin-bottom: 6px; }
+.reserva-fechas { font-size: 12px; color: #888780; }
+.reserva-monto { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 300; text-align: right; }
+.reserva-monto-label { font-size: 10px; color: #888780; margin-bottom: 4px; text-align: right; }
+.reserva-monto-sub { font-size: 10px; color: #888780; margin-bottom: 8px; text-align: right; }
+.badge-confirmada { padding: 3px 10px; font-size: 9px; letter-spacing: 1px; text-transform: uppercase; border: 0.5px solid #C9A96E; color: #BA8A4E; }
+.badge-cancelada { padding: 3px 10px; font-size: 9px; letter-spacing: 1px; text-transform: uppercase; border: 0.5px solid #B4B2A9; color: #5F5E5A; }
+.badge-pendiente { padding: 3px 10px; font-size: 9px; letter-spacing: 1px; text-transform: uppercase; border: 0.5px solid #D3D1C7; color: #888780; }
+.reservas-empty { font-size: 14px; color: #888780; }
+
+
+
+/* ADMIN */
+.admin-wrap { display: grid; grid-template-columns: 200px 1fr; min-height: calc(100vh - 64px); }
+.sidebar { background: #1C1C1A; padding: 0; }
+.sb-section { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: #444441; padding: 16px 20px 6px; }
+.sb-item { display: flex; align-items: center; gap: 10px; padding: 10px 20px; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: #888780; text-decoration: none; }
+.sb-item:hover { color: #F7F4EF; }
+.sb-item.active { color: #C9A96E; background: rgba(201,169,110,0.08); }
+.sb-dot { width: 4px; height: 4px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+.admin-content { background: #F7F4EF; padding: 32px 36px; }
+.admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; }
+.admin-title { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 300; margin-bottom: 24px; }
+.admin-date { font-size: 11px; color: #888780; }
+.metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 28px; }
+.metric { background: #fff; border: 0.5px solid #D3D1C7; padding: 16px; }
+.metric-label { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: #888780; margin-bottom: 8px; }
+.metric-val { font-family: 'Cormorant Garamond', serif; font-size: 48px; font-weight: 300; }
+.metric-val.gold { color: #C9A96E; }
+.table-section-title { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #888780; margin-bottom: 12px; }
+.data-table { width: 100%; border-collapse: collapse; background: #fff; border: 0.5px solid #D3D1C7; }
+.data-table th { padding: 10px 14px; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: #888780; border-bottom: 0.5px solid #D3D1C7; text-align: left; font-weight: 400; background: #F7F4EF; }
+.data-table td { padding: 11px 14px; font-size: 12px; border-bottom: 0.5px solid #F0EDE8; color: #1C1C1A; }
+.data-table tr:last-child td { border-bottom: none; }
+.action-btn { background: none; border: 0.5px solid #D3D1C7; padding: 4px 10px; font-size: 9px; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; font-family: 'DM Sans', sans-serif; color: #888780; margin-right: 4px; text-decoration: none; }
+.action-btn:hover { border-color: #C9A96E; color: #C9A96E; }
+.action-btn.danger:hover { border-color: #B4B2A9; color: #5F5E5A; }
+.status-ok { background: #F7F4EF; border: 0.5px solid #C9A96E; color: #BA8A4E; padding: 3px 10px; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; }
+.status-cancel { background: #F7F4EF; border: 0.5px solid #B4B2A9; color: #5F5E5A; padding: 3px 10px; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; }
+.admin-form-grid { display: grid; grid-template-columns: 1fr 320px; gap: 32px; }
+.admin-upload-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+.admin-check-row { display: flex; align-items: center; gap: 10px; margin-bottom: 24px; }
+.admin-filter-bar { display: flex; gap: 8px; margin-bottom: 20px; }
+.btn-primary-sm { width: auto; padding: 12px 32px; }
+.admin-side-panel { background: #1C1C1A; padding: 28px; }
+.admin-side-label { font-size: 12px; color: #888780; margin-bottom: 8px; }
+.admin-side-price { font-family: 'Cormorant Garamond', serif; font-size: 22px; color: #C9A96E; margin-bottom: 16px; }
+.admin-side-value { font-size: 18px; font-weight: 300; color: #F7F4EF; }
+.admin-side-value-sm { font-size: 14px; color: #F7F4EF; margin-bottom: 16px; }
+.admin-sub-title { font-size: 14px; letter-spacing: 1px; text-transform: uppercase; color: #888780; margin-bottom: 16px; }
+.admin-file-input { width: 100%; padding: 10px 0; border: none; border-bottom: 1px solid #D3D1C7; margin-bottom: 18px; font-size: 13px; background: transparent; }
+.admin-img-list { display: flex; flex-direction: column; gap: 8px; }
+.admin-img-row { display: grid; grid-template-columns: 80px 1fr auto; gap: 12px; align-items: center; background: #fff; border: 0.5px solid #D3D1C7; padding: 10px; }
+.admin-img-thumb { width: 80px; height: 60px; object-fit: cover; }
+.admin-img-desc { font-size: 12px; color: #888780; }
+.admin-empty-msg { font-size: 13px; color: #888780; }
+.admin-badge-wrap { margin-bottom: 16px; }
+.td-id { color: #888780; }
+.data-table .td-price { font-family: 'Cormorant Garamond', serif; font-size: 22px; }
+/* MENSAJES */
+.msg-error { color: #8B1A1A; background: #FDF2F2; border-left: 2px solid #8B1A1A; padding: 10px 14px; }
+.msg-success { color: #2D5A27; background: #F2FDF2; border-left: 2px solid #2D5A27; padding: 10px 14px; }
+.msg-info { color: #856404; background: #FFF9E6; border-left: 2px solid #856404; padding: 10px 14px; }
+
+
+/* CARRUSEL DETALLE */
+.carousel { position: relative; aspect-ratio: 16/9; max-width: 700px; overflow: hidden; background: #1C1C1A; margin: 0 auto 32px; }
+.carousel-track { display: flex; height: 100%; transition: transform 0.35s ease; }
+.carousel-slide { min-width: 100%; height: 100%; flex-shrink: 0; }
+.carousel-slide img { width: 100%; height: 100%; object-fit: contain; object-position: center; display: block; }
+.carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(247,244,239,0.15); border: 0.5px solid rgba(247,244,239,0.3); color: #F7F4EF; font-size: 26px; width: 40px; height: 40px; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 2; line-height: 1; }
+.carousel-prev { left: 12px; }
+.carousel-next { right: 12px; }
+.carousel-btn:hover { background: rgba(201,169,110,0.85); border-color: #C9A96E; color: #1C1C1A; }
+.carousel-dots { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; }
+.carousel-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(247,244,239,0.35); cursor: pointer; border: none; padding: 0; }
+.carousel-dot.active { background: #C9A96E; }
+.carousel-empty { aspect-ratio: 16/9; max-width: 700px; background: #1C1C1A; margin: 0 auto 32px; display: flex; align-items: center; justify-content: center; }
+.carousel-empty-text { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #444441; }
+/* DETALLE HABITACION */
+.detail-grid { display: grid; grid-template-columns: 1fr 320px; gap: 32px; }
+.detail-badge-row { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+.booking-side { background: #1C1C1A; padding: 28px; }
+.booking-side-title { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 300; color: #F7F4EF; margin-bottom: 20px; }
+.btn-reservar { width: 100%; background: #C9A96E; color: #1C1C1A; border: none; padding: 14px; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; display: block; text-align: center; text-decoration: none; font-weight: 500; }

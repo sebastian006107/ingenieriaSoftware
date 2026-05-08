@@ -40,7 +40,7 @@ def registro_view(request):
         return redirect(next_url)
 
     return render(request, 'registro.html', {'next': request.GET.get('next', '')})
-
+#omrny
 
 def login_view(request):
     if request.method == 'POST':
